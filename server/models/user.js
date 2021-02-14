@@ -1,7 +1,7 @@
-const mongoose = require('mongoose')
-const validator = require('validator')
-const crypto = require('crypto')
-const bcrypt = require('bcryptjs')
+const mongoose = require('mongoose');
+const validator = require('validator');
+const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema(
 	{
@@ -93,5 +93,5 @@ userSchema.methods.createEmailConfirmToken = function () {
 	return emailConfirmToken
 }
 
-const User = mongoose.model('User', userSchema)
-module.exports = User
+const User = mongoose.model('User', userSchema);
+module.exports = User;
