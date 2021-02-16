@@ -71,51 +71,6 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 	})
 })
 
-exports.updateUserByAdmin = catchAsync(async (req, res, next) => {
-	if (req.body.password) {
-		return next(
-			new AppError(
-				'This route is not for password updates. Please use /updateMyPassword',
-				400
-			)
-		)
-	}
-
-	const filteredBody = filterObj(
-		req.body,
-		'firstName',
-		'lastName',
-		'email',
-		'status',
-		'company',
-		'website',
-		'paypalId',
-		'phone',
-		'address1',
-		'address2',
-		'country',
-		'state',
-		'city',
-		'zip'
-	)
-
-	console.log(req.body)
-
-	const updatedUser = await User.findByIdAndUpdate(
-		req.params.id,
-		filteredBody,
-		{
-			new: true,
-			runValidators: true,
-		}
-	)
-
-	res.status(200).json({
-		status: 'success',
-		data: updatedUser,
-	})
-})
-
 exports.deleteMe = catchAsync(async (req, res, next) => {
 	await User.findByIdAndDelete(req.user.id)
 	res.status(200).json({
