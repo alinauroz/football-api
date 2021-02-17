@@ -117,7 +117,7 @@ exports.acceptMemberRequest = catchAsync(async (req, res, next) => {
 
 });
 
-exports.cancelMemberRequest = catchAsync(async (req, res, next) => {
+exports.rejectMemberRequest = catchAsync(async (req, res, next) => {
     const {
         teamId, userId
     } = req.body;
