@@ -53,3 +53,62 @@ exports.requestAsMember = catchAsync(async (req, res, next) => {
     })
 
 });
+
+exports.acceptMemberRequest = catchAsync(async (req, res, next) => {
+    const {
+        teamId, userId
+    } = req.body;
+
+    const owner = req.user.id;
+
+    let team = await Team.findById(teamId);
+
+    if (!teamId || !userId) {
+        return next (
+            new AppError(
+                'Team Id and User Id are required',
+                400
+            )
+        );
+    }
+
+    if (!team) {
+        return next(
+            new AppError(
+                'Team not found',
+                404
+            )
+        )
+    }
+    else if (owner !== team.owner) {
+        return next(
+            new AppError(
+                'Only team owner can accept requests',
+                401
+            )
+        )
+    }
+
+    if (team.membersRequest.indexOf(userId) === -1) {
+        return next(
+            new AppError(
+                'No such request found',
+                404
+            )
+        )
+    }
+
+    await Team.updateOne(
+        {_id: teamId},
+        {
+            $pull: {membersRequest: userId},
+            $push: {members: userId}
+        }
+    );
+
+    res.send({
+        status: 'success',
+        data: team,
+    });
+
+});
