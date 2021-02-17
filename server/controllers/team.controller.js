@@ -4,6 +4,7 @@ const Team = require('../models/team.model');
 const factory = require('./handlerFactory');
 
 exports.getAll = factory.getAll(Team);
+exports.getOne = factory.getOne(Team);
 
 exports.createTeam = catchAsync(async (req, res, next) => {
     req.body.owner = req.user.id;

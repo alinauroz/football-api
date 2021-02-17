@@ -3,7 +3,8 @@ const teamController = require('../controllers/team.controller');
 const authController = require('../controllers/auth.controller');
 const router = express.Router();
 
-router.get('/', teamController.getAll)
+router.get('/', teamController.getAll);
+router.get('/:id', teamController.getOne);
 
 router.use(authController.protect);
 
