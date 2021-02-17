@@ -54,6 +54,16 @@ exports.requestAsMember = catchAsync(async (req, res, next) => {
 
 });
 
+const moveRequests = async (id, userId, from, to) => {
+    return await Team.updateOne(
+        {_id: id},
+        {
+            $pull: {[from]: userId},
+            $push: {[to]: userId}
+        }
+    );
+}
+
 exports.acceptMemberRequest = catchAsync(async (req, res, next) => {
     const {
         teamId, userId
@@ -98,17 +108,64 @@ exports.acceptMemberRequest = catchAsync(async (req, res, next) => {
         )
     }
 
-    await Team.updateOne(
-        {_id: teamId},
-        {
-            $pull: {membersRequest: userId},
-            $push: {members: userId}
-        }
-    );
+    await moveRequests(teamId, userId, 'membersRequest', 'members');
 
     res.send({
         status: 'success',
-        data: team,
+        data: {},
+    });
+
+});
+
+exports.cancelMemberRequest = catchAsync(async (req, res, next) => {
+    const {
+        teamId, userId
+    } = req.body;
+
+    const owner = req.user.id;
+
+    let team = await Team.findById(teamId);
+
+    if (!teamId || !userId) {
+        return next (
+            new AppError(
+                'Team Id and User Id are required',
+                400
+            )
+        );
+    }
+
+    if (!team) {
+        return next(
+            new AppError(
+                'Team not found',
+                404
+            )
+        )
+    }
+    else if (owner !== team.owner) {
+        return next(
+            new AppError(
+                'Only team owner can accept requests',
+                401
+            )
+        )
+    }
+
+    if (team.membersRequest.indexOf(userId) === -1) {
+        return next(
+            new AppError(
+                'No such request found',
+                404
+            )
+        )
+    }
+
+    await moveRequests(teamId, userId, 'membersRequest', 'cancelledMembersRequest');
+
+    res.send({
+        status: 'success',
+        data: {},
     });
 
 });

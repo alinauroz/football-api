@@ -18,6 +18,10 @@ const teamSchema = new Schema({
         type: [String],
         default: []
     },
+    cancelledMembersRequest: {
+        type: [String],
+        default: []
+    },
     matchesRequest: {
         type: [{
             from: {
