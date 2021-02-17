@@ -14,11 +14,11 @@ const teamSchema = new Schema({
         type: String,
         required: [true, 'Team name is required']
     },
-    requestMembers: {
+    membersRequest: {
         type: [String],
         default: []
     },
-    requestMatches: {
+    matchesRequest: {
         type: [{
             from: {
                 type: String,
