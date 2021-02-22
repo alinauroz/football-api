@@ -8,4 +8,3 @@ exports.getOne = factory.getOne(News);
 exports.create = factory.createOne(News);
 exports.update = factory.updateOne(News);
 exports.delete = factory.deleteOne(News);
-
