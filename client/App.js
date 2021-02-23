@@ -15,13 +15,14 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
+import styles from './App.style'
 
 import Login from './components/Login'
 
 const App = () => {
   return (
     <SafeAreaView>
-      <View>
+      <View style={styles.container}>
         <Login />
       </View>
     </SafeAreaView>
