@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 import styles from './App.style'
 
-import Login from './components/Login'
+import Login from './components/Login/Login.Component'
 
 const App = () => {
   return (
