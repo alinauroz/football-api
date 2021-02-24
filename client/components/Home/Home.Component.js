@@ -8,6 +8,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+Icon.loadFont();
 
 const Tab = createBottomTabNavigator();
 
@@ -24,9 +27,32 @@ function MyTabs() {
       >
       <SafeAreaProvider>
         <NavigationContainer>
-            <Tab.Navigator>
-                <Tab.Screen name="Home" component={HomeScreen} />
-                <Tab.Screen name="Settings" component={SettingsScreen} />
+            <Tab.Navigator
+                screenOptions={({ route }) => ({
+                    tabBarIcon: ({focused, color, size}) => {
+                        let iconName;
+                        if (route.name === 'Home')
+                            iconName = 'home'
+                        else if (route.name === 'Matches')
+                            iconName = 'futbol-o'
+                        else if (route.name === 'News')
+                            iconName = 'newspaper-o'
+                        else if (route.name === 'Teams')
+                            iconName = 'users'
+                        else if (route.name === 'Me')
+                            iconName = 'user'
+                        return <Icon name={iconName} size={size} color={color} />
+                    }
+                })}
+            >
+                <Tab.Screen
+                    name="Home"
+                    component={HomeScreen}
+                />
+                <Tab.Screen name="Matches" component={SettingsScreen} />
+                <Tab.Screen name="News" component={SettingsScreen} />
+                <Tab.Screen name="Teams" component={SettingsScreen} />
+                <Tab.Screen name="Me" component={SettingsScreen} />
             </Tab.Navigator>
         </NavigationContainer>
     </SafeAreaProvider>
