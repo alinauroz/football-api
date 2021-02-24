@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-navigation/bottom-tabs": "^5.11.8",
     "@react-navigation/material-bottom-tabs": "^5.3.14",
+    "moment": "^2.29.1",
     "react": "16.13.1",
     "react-native": "0.63.4",
     "react-native-elements": "^3.2.0",

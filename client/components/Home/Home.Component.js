@@ -10,6 +10,9 @@ import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import News from '../News/News.Component'
+import Me from '../Me/Me.Component'
+
 Icon.loadFont();
 
 const Tab = createBottomTabNavigator();
@@ -50,9 +53,9 @@ function MyTabs() {
                     component={HomeScreen}
                 />
                 <Tab.Screen name="Matches" component={SettingsScreen} />
-                <Tab.Screen name="News" component={SettingsScreen} />
+                <Tab.Screen name="News" component={News} />
                 <Tab.Screen name="Teams" component={SettingsScreen} />
-                <Tab.Screen name="Me" component={SettingsScreen} />
+                <Tab.Screen name="Me" component={Me} />
             </Tab.Navigator>
         </NavigationContainer>
     </SafeAreaProvider>
