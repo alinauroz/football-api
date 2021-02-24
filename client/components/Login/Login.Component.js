@@ -3,7 +3,7 @@ import {
     Text,
     View,
     Image,
-    Dimensions
+    Dimensions,
 } from 'react-native'
 import { Button } from 'react-native-elements';
 import Input from '../Basic/Input/Input.component';
@@ -15,6 +15,8 @@ const Login = (props) => {
 
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [loading, setLoading] = React.useState(false);
+    const [error, setError] = React.useState('');
 
     return (
         <>
@@ -35,12 +37,12 @@ const Login = (props) => {
             secureTextEntry={true}
         />
         <Button
-          title="Login"
+          title="Sign In"
           onPress={() => alert(1)}
           style={{
               marginTop: 10
           }}
-          loading={true}
+          loading={loading}
         />
         <View
             style={styles.noteContainer}

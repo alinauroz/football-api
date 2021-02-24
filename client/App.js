@@ -18,14 +18,19 @@ import {
 import styles from './App.style'
 
 import Login from './components/Login/Login.Component'
+import Home from './components/Home/Home.Component'
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const App = () => {
+
   return (
+    <SafeAreaProvider>
     <SafeAreaView>
       <View style={styles.container}>
-        <Login />
+       <Home />
       </View>
     </SafeAreaView>
+    </SafeAreaProvider>
   );
 };
 
