@@ -1,6 +1,7 @@
 import React from 'react' 
 import {View, Text, Image, ScrollView} from 'react-native'
 import Unit from './News.Unit'
+import styles from './News.Style'
 
 
 const News = (props) => {
@@ -10,7 +11,9 @@ const News = (props) => {
         {highlight: 'News Three', body: 'Body of News Three', image: '', createdAt: Date.now()},
     ];
     return (
-    <ScrollView>
+    <ScrollView
+        style={styles.container}
+    >
     {mockNews.map((news, index) => (
         <Unit
             highlight={news.highlight}
