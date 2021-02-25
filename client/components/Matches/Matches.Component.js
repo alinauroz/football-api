@@ -1,6 +1,7 @@
 import React, {useState} from 'react' 
 import { ScrollView, View } from 'react-native'
 import ButtonGroup from './ButtonGroup'
+import PastMatch from './Matches.Past.Unit'
 
 const Matches = (props) => {
 
@@ -21,6 +22,11 @@ const Matches = (props) => {
                     setSelectedIndex={(index) => setSelectedIndex(index)}
                 />
             </View>
+            <ScrollView>
+                <PastMatch 
+                    
+                />
+            </ScrollView>
         </View>
     )
 
