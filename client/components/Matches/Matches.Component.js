@@ -2,6 +2,8 @@ import React, {useState} from 'react'
 import { ScrollView, View } from 'react-native'
 import ButtonGroup from './ButtonGroup'
 import PastMatch from './Matches.Past.Unit'
+import UpcomingMatch from './Matches.Upcoming.Unit'
+import LiveMatch from './Matches.Live.Unit'
 
 const Matches = (props) => {
 
@@ -22,9 +24,19 @@ const Matches = (props) => {
                     setSelectedIndex={(index) => setSelectedIndex(index)}
                 />
             </View>
-            <ScrollView>
+            <ScrollView
+                style={{
+                    paddingBottom: 20,
+                }}
+            >
                 <PastMatch 
-                    
+
+                />
+                <UpcomingMatch 
+                
+                />
+                <LiveMatch 
+                
                 />
             </ScrollView>
         </View>

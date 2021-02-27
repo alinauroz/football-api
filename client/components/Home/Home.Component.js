@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import News from '../News/News.Component'
 import Me from '../Me/Me.Component'
 import Matches from '../Matches/Matches.Component'
+import Teams from '../Team/Team.Component'
 
 Icon.loadFont();
 
@@ -55,7 +56,7 @@ function MyTabs() {
                 />
                 <Tab.Screen name="Matches" component={Matches} />
                 <Tab.Screen name="News" component={News} />
-                <Tab.Screen name="Teams" component={SettingsScreen} />
+                <Tab.Screen name="Teams" component={Teams} />
                 <Tab.Screen name="Me" component={Me} />
             </Tab.Navigator>
         </NavigationContainer>
