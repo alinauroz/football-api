@@ -36,8 +36,8 @@ const Team = (props) => {
             <View style={{
                 width: (Dimensions.get('window').width) * 0.7 - 90,
             }}>
-                <Text style={styles.teamName}>Team Name</Text>
-                <Text style={styles.memberCount}>12 members</Text>
+                <Text style={styles.teamName}>{props.name}</Text>
+                <Text style={styles.memberCount}>{props.memberCount} members</Text>
                 <View 
                     style={{
                         display: 'flex',
