@@ -170,3 +170,29 @@ exports.rejectMemberRequest = catchAsync(async (req, res, next) => {
     });
 
 });
+
+exports.matchRequest = catchAsync(async (req, res, next) => {
+
+    if (!req.body.teamId) {
+        return next(
+			new AppError(
+				'Team is required',
+				400
+			)
+		)
+    }
+
+    await Team.update(
+        {_id: req.body.teamId},
+        {$push: {matchesRequest: {
+            from: req.body.team2,
+            message: req.body.message
+        }}}
+    );
+
+    res.send({
+        status: 'success',
+        data: {}
+    })
+
+});
