@@ -21,6 +21,9 @@ const Teams = () => {
             else if (index === 1) {
                 return team.members.indexOf(user._id) > -1;
             }
+            else if (index === 2) {
+                return team.owner === user._id;
+            }
         });
 
         _setTeamsToView(_teams);
