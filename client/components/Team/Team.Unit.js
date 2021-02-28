@@ -52,7 +52,9 @@ const Team = (props) => {
                         (
                             <>
                             <MemberRequestButton />
-                            <MatchRequestButton/>
+                            <MatchRequestButton 
+                                
+                            />
                             </>
                         )
                     }
