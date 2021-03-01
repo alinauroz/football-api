@@ -24,12 +24,9 @@ export default function () {
             <div class = 'collapse' id = 'collapseExample' style = {{zIndex: 2, position: 'absolute', width: 200, right: 0, top: 50, padding: 5, background: 'white', boxShadow: '0px 0px 2px grey'}}>
                 
                 <div style = {{color: '#333', marginBottom: 10, borderBottom: '1px solid lightgrey', paddingBottom: 3}}>
-                    <p>Role: {admin.role.toUpperCase()}</p>
+                    
                     <p>Email: {admin.email}</p>
-                    My Privileges <span style = {{color: 'white', background: '#333', borderRadius: 2, padding: 2}}>{admin.privileges ? admin.privileges.length: 0}</span>
-                    <p>
-                        {admin.privileges.join(', ')}
-                    </p>
+                    
                 </div>
                 
                 <input 

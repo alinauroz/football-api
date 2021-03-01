@@ -3,6 +3,13 @@ import LeftBar from './components/LeftBar'
 import './App.css'
 
 import Login from './components/pages/Login'
+import Topbar from './components/Topbar'
+import AddNews from './components/pages/AddNews'
+import ViewNews from './components/pages/ViewNews'
+import ViewTeams from './components/pages/ViewTeams'
+
+import cookieParser from './utils/cookieParser'
+
 import { request } from './utils/request'
 
 const admin = JSON.parse(localStorage.getItem('admin') || '{}');
@@ -30,6 +37,9 @@ export default function () {
 
   const BUTTONS = Object.freeze([
     {title: 'Home', onClick : () => setScreen('Home')},
+    {title: 'Add News', onClick : () => setScreen('AddNews')},
+    {title: 'View News', onClick : () => setScreen('ViewNews')},
+    {title: 'View Teams', onClick : () => setScreen('ViewTeams')},
   ]);
 
   if (isLoggedIn) {
@@ -40,7 +50,15 @@ export default function () {
         buttonList = {BUTTONS}
       />
       <div className = 'main-container'>
-        
+        <div style = {{display : screen == 'AddNews' ? 'block' : 'none'}}>
+          <AddNews base = {base} setBase = {setAppBase} setScreen = {setScreen} />
+        </div>
+        <div style = {{display : screen == 'ViewNews' ? 'block' : 'none'}}>
+          <ViewNews base = {base} setBase = {setAppBase} setScreen = {setScreen} />
+        </div>
+        <div style = {{display : screen == 'ViewTeams' ? 'block' : 'none'}}>
+          <ViewTeams base = {base} setBase = {setAppBase} setScreen = {setScreen} />
+        </div>
       </div>
     </>
   )

@@ -17,7 +17,7 @@ export default function (props) {
     const deletePage = async (e, data) => {
         e.target.disabled = true;
         let res = await request({
-            route: 'posts/',
+            route: 'news/',
             params: data._id,
             method: 'DELETE',
             credentials: 'include'
@@ -34,13 +34,13 @@ export default function (props) {
 
         if (data) return;
 
-        let res = await fetch(api + 'posts');
+        let res = await fetch(api + 'news');
         let data_ = await res.json();
 
         data_.data.forEach(post => {
             post.img = {
                 type: 'image',
-                src: api + 'images/' +(post.items[0] && post.items[0].thumb)
+                src: post.image
             }
         })
 
@@ -52,7 +52,7 @@ export default function (props) {
     return (
         <div className = 'card'>
             <h3 style = {{margin: 0, marginBottom: 10}}>
-                View Templates
+                View News
                 <span
                     style={{
                         float: 'right'
@@ -62,7 +62,7 @@ export default function (props) {
                         type = 'button'
                         value = 'Add'
                         className = 'btn btn-success'
-                        onClick = {() => props.setScreen('AddProduct')}
+                        onClick = {() => props.setScreen('AddNews')}
                     />
                 </span>
             </h3>
@@ -72,7 +72,7 @@ export default function (props) {
                 <>
                 <Viewer 
                     data = {data.data.slice(startIndex, pageSize + startIndex)}
-                    hidden = {['_id', 'createdAt', 'updatedAt', 'items']}
+                    hidden = {['_id', 'image']}
                     actions = {[
                         {onClick: EditAction, value: 'Edit', className : 'btn btn-primary margin-5'},
                         {onClick: deletePage, value: 'Delete', className : 'btn btn-danger margin-5', break: true}

@@ -1,5 +1,5 @@
 export const apis = {
-    'dev': 'http://localhost:5000/',
+    'dev': 'http://localhost:5001/',
     'prod': 'http://picsfies.com:5000/'
 }
 
