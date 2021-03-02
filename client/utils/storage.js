@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const set = (key, value) => {
+export const set = async (key, value) => {
     
     if (typeof value === 'object') {
         value = JSON.stringify(value);
@@ -11,7 +11,7 @@ export const set = (key, value) => {
 
 }
 
-export const get = (key) => {
+export const get = async (key) => {
 
     return AsyncStorage.getItem(key);
 

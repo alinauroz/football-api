@@ -1,3 +1,5 @@
+import {set, get} from './storage'
+
 const api = "http://localhost:5001/"
 
 export default request = async (data) => {
