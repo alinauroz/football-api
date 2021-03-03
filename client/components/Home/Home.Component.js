@@ -14,13 +14,11 @@ import News from '../News/News.Component'
 import Me from '../Me/Me.Component'
 import Matches from '../Matches/Matches.Component'
 import Teams from '../Team/Team.Component'
+import Dashbaord from '../Dashboard/Dashboard.Component'
 
 Icon.loadFont();
 
 const Tab = createBottomTabNavigator();
-
-const HomeScreen = () => <Text>Home Screen</Text>
-const SettingsScreen = () => <Text>Settings </Text>
 
 function MyTabs(props) {
     const insets = useSafeAreaInsets();
@@ -55,10 +53,7 @@ function MyTabs(props) {
                     }
                 })}
             >
-                <Tab.Screen
-                    name="Home"
-                    component={HomeScreen}
-                />
+                <Tab.Screen name="Home" component={Dashbaord}/>
                 <Tab.Screen name="Matches" component={Matches} />
                 <Tab.Screen name="News" component={News} />
                 <Tab.Screen name="Teams" component={Teams} />
