@@ -8,9 +8,11 @@ export default request = async (data) => {
 
         let headers = {};
         let params = {};
+        if (data.body && data.type !== 'GET')
+            params.body = JSON.stringify(data.body);
 
         let res = await fetch(api + data.route, {
-            type: data.type,
+            method: data.type,
             headers: {
                 'Content-Type': 'application/json',
                 ... headers,

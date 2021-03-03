@@ -10,6 +10,8 @@ import Input from '../Basic/Input/Input.component';
 import CoverPhoto from '../../res/login-cover.jpg';
 import commonStyles from '../../common/styles';
 import styles from './Login.style'
+import request from '../../utils/request'
+import {set, get} from '../../utils/storage'
 
 const Login = (props) => {
 
@@ -17,6 +19,26 @@ const Login = (props) => {
     const [password, setPassword] = React.useState('');
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState('');
+
+    const login = async () => {
+        try {
+            setLoading(true);
+            let res = await request({
+                route: 'users/login',
+                type: 'POST',
+                body: {
+                    email: username,
+                    password
+                }
+            })
+            console.log(res);
+            setLoading(false);
+        }
+        catch (err) {
+            console.log("ERROR", err);
+            setLoading(false);
+        }
+    }
 
     return (
         <>
@@ -38,7 +60,7 @@ const Login = (props) => {
         />
         <Button
           title="Sign In"
-          onPress={() => alert(1)}
+          onPress={login}
           style={{
               marginTop: 10
           }}

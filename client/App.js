@@ -23,6 +23,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const App = () => {
 
+  return <Login />
+
   return (
     <SafeAreaProvider>
     <SafeAreaView>
