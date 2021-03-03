@@ -13,6 +13,7 @@ import styles from './Login.style'
 import request from '../../utils/request'
 import {set, get} from '../../utils/storage'
 import user from '../../utils/user'
+import Error from '../Error/Error.Component'
 
 const Login = (props) => {
 
@@ -42,7 +43,7 @@ const Login = (props) => {
                 props.reload();
             }
             else {
-                setError(res.error ? res.error.message: 'Unknown error occurred');
+                setError(res.message ? res.message: 'Unknown error occurred');
             }
 
             console.log(res);
@@ -51,6 +52,7 @@ const Login = (props) => {
         }
         catch (err) {
             console.log("ERROR", err);
+            setError(res.message ? res.message: 'Unknown error occurred');
             setLoading(false);
         }
     }
@@ -63,6 +65,9 @@ const Login = (props) => {
                 width: Dimensions.get('window').width - 40,
                 resizeMode: 'contain'
             }}
+        />
+        <Error 
+            message={error}
         />
         <Input 
             placeholder="Username"
