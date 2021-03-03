@@ -1,4 +1,5 @@
 import {set, get} from './storage'
+import user from './user'
 
 const api = "http://localhost:5001/"
 
@@ -10,6 +11,9 @@ export default request = async (data) => {
         let params = {};
         if (data.body && data.type !== 'GET')
             params.body = JSON.stringify(data.body);
+
+        if (user.token)
+            headers.Authorization = `Bearer ${user.token}`
 
         let res = await fetch(api + data.route, {
             method: data.type,

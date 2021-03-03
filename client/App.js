@@ -20,16 +20,34 @@ import styles from './App.style'
 import Login from './components/Login/Login.Component'
 import Home from './components/Home/Home.Component'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import {get} from './utils/storage';
+import user from './utils/user'
 
 const App = () => {
 
-  return <Login />
+  const [loggedIn, setLoggedIn] = React.useState();
+
+  React.useEffect(() => {
+
+    get('token').then(async token => {
+      if (token) {
+        let userData = await get('user');
+          user.setData(userData);
+          setLoggedIn(true);
+      }
+    })
+
+  }, [loggedIn])
 
   return (
     <SafeAreaProvider>
     <SafeAreaView>
       <View style={styles.container}>
-       <Home />
+      {
+        loggedIn ?
+        <Home />:
+        <Login reload={() => setLoggedIn(true)} />
+      }
       </View>
     </SafeAreaView>
     </SafeAreaProvider>

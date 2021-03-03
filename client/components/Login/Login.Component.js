@@ -12,6 +12,7 @@ import commonStyles from '../../common/styles';
 import styles from './Login.style'
 import request from '../../utils/request'
 import {set, get} from '../../utils/storage'
+import user from '../../utils/user'
 
 const Login = (props) => {
 
@@ -31,7 +32,21 @@ const Login = (props) => {
                     password
                 }
             })
+            
+            if (res.status === 'success') {
+                res.data.token = res.token;
+                user.setData(res.data);
+                set("user", res.data);
+                set("token", res.token);
+                console.log(res.token, res.data)
+                props.reload();
+            }
+            else {
+                setError(res.error ? res.error.message: 'Unknown error occurred');
+            }
+
             console.log(res);
+
             setLoading(false);
         }
         catch (err) {
