@@ -30,10 +30,11 @@ const App = () => {
   React.useEffect(() => {
 
     get('token').then(async token => {
-      if (token) {
+      if (token && token !== 'null') {
+        console.log("TOKEN", token)
         let userData = await get('user');
-          user.setData(userData);
-          setLoggedIn(true);
+        user.setData(userData);
+        setLoggedIn(true);
       }
     })
 
@@ -45,7 +46,7 @@ const App = () => {
       <View style={styles.container}>
       {
         loggedIn ?
-        <Home />:
+        <Home reload={() => setLoggedIn(false)} />:
         <Login reload={() => setLoggedIn(true)} />
       }
       </View>

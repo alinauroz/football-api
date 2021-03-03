@@ -22,8 +22,13 @@ const Tab = createBottomTabNavigator();
 const HomeScreen = () => <Text>Home Screen</Text>
 const SettingsScreen = () => <Text>Settings </Text>
 
-function MyTabs() {
+function MyTabs(props) {
     const insets = useSafeAreaInsets();
+
+    function MeWithReload () {
+        return <Me reload={props.reload}></Me>
+    }
+
   return (
       <View
         style={{
@@ -57,7 +62,7 @@ function MyTabs() {
                 <Tab.Screen name="Matches" component={Matches} />
                 <Tab.Screen name="News" component={News} />
                 <Tab.Screen name="Teams" component={Teams} />
-                <Tab.Screen name="Me" component={Me} />
+                <Tab.Screen name="Me" component={MeWithReload} />
             </Tab.Navigator>
         </NavigationContainer>
     </SafeAreaProvider>

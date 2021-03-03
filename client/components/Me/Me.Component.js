@@ -1,7 +1,8 @@
 import React from 'react';
-import {Image} from 'react-native-elements'
+import {Image, Button} from 'react-native-elements'
 import {View, Text, ScrollView} from 'react-native'
 import styles from './Me.style'
+import {set} from '../../utils/storage'
 
 const Me = (props) => {
 
@@ -57,6 +58,18 @@ const Me = (props) => {
                     <Text>Feb 18, 2021</Text>
                 </View>
             </View>
+            <Button 
+                title='Log Out'
+                onPress={() => {
+                    set('token', null);
+                    props.reload();
+                }}
+                style={{
+                    marginTop: 30,
+                    alignSelf: 'center',
+                    width: 120,
+                }}
+            />
         </ScrollView>
     )
 
