@@ -3,6 +3,7 @@ import {Image, Button} from 'react-native-elements'
 import {View, Text, ScrollView} from 'react-native'
 import styles from './Me.style'
 import {set} from '../../utils/storage'
+import user from '../../utils/user'
 
 const Me = (props) => {
 
@@ -23,7 +24,7 @@ const Me = (props) => {
                     <Text style={styles.infoTitle}>Name</Text>
                 </View>
                 <View style={styles.infoDetailContainer}>
-                    <Text>Ali Nauroze</Text>
+                    <Text>{user.name}</Text>
                 </View>
             </View>
             <View style={styles.infoContainer}>
@@ -31,7 +32,7 @@ const Me = (props) => {
                     <Text style={styles.infoTitle}>Email</Text>
                 </View>
                 <View style={styles.infoDetailContainer}>
-                    <Text>alinauroze@hotmail.com</Text>
+                    <Text>{user.email}</Text>
                 </View>
             </View>
             <View style={styles.infoContainer}>

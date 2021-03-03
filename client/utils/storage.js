@@ -13,6 +13,15 @@ export const set = async (key, value) => {
 
 export const get = async (key) => {
 
-    return AsyncStorage.getItem(key);
+    let data = await AsyncStorage.getItem(key);
+
+    try {
+        data = JSON.parse(data);
+    }
+    catch (err) {
+
+    }
+
+    return data;
 
 }
