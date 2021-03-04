@@ -19,7 +19,7 @@ const Teams = () => {
     const [teamsToView, _setTeamsToView] = React.useState([]);
     const [toRequestTeam, setToRequestTeamId] = React.useState(null);
 
-    const setTeamsToView = (teams, index=selectedIndex) => {
+    const setTeamsToView = (teams, index=selectedIndex, dontSet) => {
         let _teams = teams.filter(team => {
             if (index === 0) {
                 return true
@@ -31,8 +31,10 @@ const Teams = () => {
                 return team.owner === user._id;
             }
         });
-
-        _setTeamsToView(_teams);
+        if (dontSet)
+            return _teams;
+        else
+            _setTeamsToView(_teams);
     }
 
     const setSelectedIndex = (index) => {
@@ -78,7 +80,7 @@ const Teams = () => {
             >
                 <MatchRequestForm
                     teamId={toRequestTeam}
-                    myTeams={[]}
+                    myTeams={setTeamsToView(teams, 2, true)}
                 />
             </Overlay>
             <ScrollView>

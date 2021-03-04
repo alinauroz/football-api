@@ -4,6 +4,7 @@ import { Text, Image, View, Dimensions } from 'react-native';
 import teamLogo from '../../res/team-logo.png';
 import styles from './Team.Style';
 import request from '../../utils/request';
+import Select from '../Basic/Select/Select.Component'
 
 const Request = (props) => {
 
@@ -12,7 +13,6 @@ const Request = (props) => {
 
     const respondToRequest = async (teamId, requestId, action='accept') => {
         try {
-            console.log(teamId, requestId)
             setLoading(true);
             let res = await request({
                 route: `teams/matches/request/${action}/`,
@@ -22,7 +22,6 @@ const Request = (props) => {
                     requestId,
                 }
             });
-            console.log(res);
         }
         catch (err) {
             setLoading(false);

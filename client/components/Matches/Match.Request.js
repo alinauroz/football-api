@@ -1,17 +1,27 @@
 import React, {useState} from 'react';
 import Input from '../Basic/Input/Input.component';
-import {Dimensions, Text, View} from 'react-native';
-import {Button} from 'react-native-elements';
+import {Dimensions, Text, TouchableOpacity, View} from 'react-native';
+import {Button, Overlay} from 'react-native-elements';
 import styles from '../../common/styles'
 import request from '../../utils/request'
+import Select from '../Basic/Select/Select.Component'
 
 const MatchRequestForm = (props) => {
 
-    const [team, setTeam] = useState();
+    const [team, setTeam] = useState(null);
+    const [teamName, setTeamName] = useState('');
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
     const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
+    const [teamSelectorView, setTeamSelectorView] = useState(false);
+
+    const myTeamsList = props.myTeams.map(team => {
+        return ({
+            value: team._id,
+            label: team.name
+        })
+    });
 
     const sendRequest = async () => {
         try {
@@ -51,6 +61,21 @@ const MatchRequestForm = (props) => {
             <Text style={{... styles.note, marginBottom: 20}}>
                 A match request will be send to Team Name
             </Text>
+            <Overlay
+                isVisible={teamSelectorView}
+                onBackdropPress={() => setTeamSelectorView(false)}
+            >
+                <Select
+                    options={myTeamsList}
+                />
+            </Overlay>
+            <TouchableOpacity
+                onPress={() => setTeamSelectorView(true)}
+            >
+                <Text>
+                    {team ? teamName : 'Choose Team'}
+                </Text>
+            </TouchableOpacity>
             <Input 
                 onChangeText={(val) => setLocation(val)}
                 placeholder="Location of Match"
