@@ -67,6 +67,10 @@ const MatchRequestForm = (props) => {
             >
                 <Select
                     options={myTeamsList}
+                    onChoose={(option) => {
+                        setTeam(option.value);
+                        setTeamName(option.label);
+                    }}
                 />
             </Overlay>
             <TouchableOpacity
