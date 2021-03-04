@@ -1,6 +1,7 @@
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const Team = require('../models/team.model');
+const Match = require('../models/match.model');
 const factory = require('./handlerFactory');
 const _ = require('lodash');
 
@@ -122,11 +123,11 @@ exports.acceptMemberRequest = catchAsync(async (req, res, next) => {
         )
     }
 
-    await moveRequests(teamId, userId, 'membersRequest', 'members');
+    moveRequests(teamId, userId, 'membersRequest', 'members');
 
     res.send({
         status: 'success',
-        data: {},
+        data: match,
     });
 
 });
@@ -199,7 +200,9 @@ exports.matchRequest = catchAsync(async (req, res, next) => {
         {_id: req.body.teamId},
         {$push: {matchesRequest: {
             from: req.body.team2,
-            message: req.body.message
+            message: req.body.message,
+            location: req.body.location,
+            date: req.body.date
         }}}
     );
 
@@ -257,7 +260,17 @@ exports.acceptMatchRequest = catchAsync(async (req, res, next) => {
         "acceptedMatchesRequest"
     );
 
-    res.send("Hello");
+    let match = new Match({
+        team1: request.from,
+        team2: teamId,
+        host: request.from,
+        venue: request.location,
+        time: request.date,
+    });
+
+    await match.save();
+
+    res.send({data: match});
 
 });
 

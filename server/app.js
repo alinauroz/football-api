@@ -12,7 +12,7 @@ const app = express();
 
 var whitelist = []
 
-const urls = ['http://161.97.126.249', 'http://localhost', 'http://picsfies.com', 'http://127.0.0.1'];
+const urls = ['http://161.97.126.249', 'http://localhost', 'http://127.0.0.1'];
 const ports = [3000, 3001, 3002, 3003, 3004, 8420, 80, 443];
 
 urls.forEach(url => {
