@@ -8,7 +8,7 @@ import user from '../../utils/user';
 import Team from './Team.Unit';
 import MatchRequestUnit from './Request.Match.Unit'
 import request from '../../utils/request';
-import {find} from 'lodash'
+import Toast from 'react-native-toast-message'
 
 import MatchRequestForm from '../Matches/Match.Request'
 
@@ -18,6 +18,13 @@ const Teams = () => {
     const [teams, setTeams] = React.useState([]);
     const [teamsToView, _setTeamsToView] = React.useState([]);
     const [toRequestTeam, setToRequestTeamId] = React.useState(null);
+
+    const onMatchRequestSent = () => {
+        setToRequestTeamId(null);
+        Toast.show({
+            text1: 'Request Sent'
+        })
+    }
 
     const setTeamsToView = (teams, index=selectedIndex, dontSet) => {
         let _teams = teams.filter(team => {
@@ -67,6 +74,7 @@ const Teams = () => {
     }
 
     return (
+        <>
         <View
             style={styles.container}
         >
@@ -81,6 +89,7 @@ const Teams = () => {
                 <MatchRequestForm
                     teamId={toRequestTeam}
                     myTeams={setTeamsToView(teams, 2, true)}
+                    onSent={onMatchRequestSent}
                 />
             </Overlay>
             <ScrollView>
@@ -121,6 +130,8 @@ const Teams = () => {
                 }
             </ScrollView>
         </View>
+        <Toast ref={(ref) => Toast.setRef(ref)} />
+        </>
     );
 
 }

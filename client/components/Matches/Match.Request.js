@@ -31,15 +31,20 @@ const MatchRequestForm = (props) => {
                 route: 'teams/match_request',
                 body: {
                     teamId: props.teamId,
-                    from: 'xxx',
+                    from: team,
                     team: props.id, 
                     message,
-                    date,
+                    date: Date.parse(date),
                     location
                 }
             });
             console.log(res);
             setLoading(false);
+
+            if (res.status === 'success' && props.onSent)
+                props.onSent();
+
+
         }
         catch (err) {
             console.log("ERROR", err);
