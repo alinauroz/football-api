@@ -2,6 +2,7 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const Team = require('../models/team.model');
 const factory = require('./handlerFactory');
+const _ = require('lodash');
 
 exports.getAll = factory.getAll(Team);
 exports.getOne = factory.getOne(Team);
@@ -61,6 +62,18 @@ const moveRequests = async (id, userId, from, to) => {
         {
             $pull: {[from]: userId},
             $push: {[to]: userId}
+        }
+    );
+}
+
+const moveMatchRequest = async (id, request, from, to) => {
+    return await Team.updateOne(
+        {_id: id},
+        {
+            $pull: {[from]: {
+                _id: request._id
+            }},
+            $push: {[to]: request}
         }
     );
 }
@@ -196,3 +209,58 @@ exports.matchRequest = catchAsync(async (req, res, next) => {
     })
 
 });
+
+exports.acceptMatchRequest = catchAsync(async (req, res, next) => {
+
+    const {
+        requestId,
+        teamId,
+    } = req.body;
+
+    if (!teamId || !requestId) {
+        return next (new AppError(
+            'TeamId and Request Id is required',
+            400
+        ));
+    }
+
+    const team = await Team.findById(teamId);
+
+    if (team.owner === req.user) {
+        return next(
+            new AppError(
+                'Only Team Admins can accept the request',
+                401
+            )
+        )
+    }
+
+    const filteredRequest = team.matchesRequest.filter(req => {
+        return req._id.equals(requestId);
+    })
+
+    const request = filteredRequest.length > 0 ? filteredRequest[0]: null;
+
+    if (!request) {
+        return next(
+            new AppError(
+                'Request not found',
+                400
+            )
+        );
+    }
+
+    moveMatchRequest(
+        teamId,
+        request,
+        "matchesRequest",
+        "acceptedMatchesRequest"
+    );
+
+    res.send("Hello");
+
+});
+
+exports.rejectMatchRequest = catchAsync(async (req, res, next) => {
+    return res.send("HELLO WORLD")
+})
