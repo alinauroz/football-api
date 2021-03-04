@@ -3,6 +3,7 @@ import Input from '../Basic/Input/Input.component';
 import {Dimensions, Text, View} from 'react-native';
 import {Button} from 'react-native-elements';
 import styles from '../../common/styles'
+import request from '../../utils/request'
 
 const MatchRequestForm = (props) => {
 
@@ -12,8 +13,28 @@ const MatchRequestForm = (props) => {
     const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
 
-    const sendRequest = () => {
-        setLoading(true);
+    const sendRequest = async () => {
+        try {
+            setLoading(true);
+            let res = await request({
+                type: 'POST',
+                route: 'teams/match_request',
+                body: {
+                    teamId: props.teamId,
+                    from: 'xxx',
+                    team: props.id, 
+                    message,
+                    date,
+                    location
+                }
+            });
+            console.log(res);
+            setLoading(false);
+        }
+        catch (err) {
+            console.log("ERROR", err);
+            setLoading(false);
+        }
     }
 
     return (
@@ -31,16 +52,16 @@ const MatchRequestForm = (props) => {
                 A match request will be send to Team Name
             </Text>
             <Input 
-                onChangeText={(e) => console.log(e)}
+                onChangeText={(val) => setLocation(val)}
                 placeholder="Location of Match"
             />
             <Input 
-                onChangeText={(e) => console.log(e)}
-                placeholder="Location of Match"
+                onChangeText={(val) => setDate(val)}
+                placeholder="Date of the Match"
             />
             <Input 
-                onChangeText={(e) => console.log(e)}
-                placeholder="Location of Match"
+                onChangeText={(val) => setMessage(val)}
+                placeholder="Any message for team admin"
             />
             <Button
                 title='Send Request'

@@ -1,17 +1,23 @@
 import React from 'react';
-import {ScrollView, View} from 'react-native'
-import styles from './Team.Style'
-import Buttons from './ButtonGroup'
-import user from '../../utils/user'
+import {ScrollView, View, Text} from 'react-native';
+import {Overlay} from 'react-native-elements';
+import styles from './Team.Style';
+import Buttons from './ButtonGroup';
+import user from '../../utils/user';
 
-import Team from './Team.Unit'
-import request from '../../utils/request'
+import Team from './Team.Unit';
+import MatchRequestUnit from './Request.Match.Unit'
+import request from '../../utils/request';
+import {find} from 'lodash'
+
+import MatchRequestForm from '../Matches/Match.Request'
 
 const Teams = () => {
 
     const [selectedIndex, _setSelectedIndex] = React.useState(0);
     const [teams, setTeams] = React.useState([]);
     const [teamsToView, _setTeamsToView] = React.useState([]);
+    const [toRequestTeam, setToRequestTeamId] = React.useState(null);
 
     const setTeamsToView = (teams, index=selectedIndex) => {
         let _teams = teams.filter(team => {
@@ -21,7 +27,7 @@ const Teams = () => {
             else if (index === 1) {
                 return team.members.indexOf(user._id) > -1;
             }
-            else if (index === 2) {
+            else if (index === 2 || index === 3) {
                 return team.owner === user._id;
             }
         });
@@ -49,6 +55,15 @@ const Teams = () => {
         getTeams();
     }, []);
 
+    const getTeam = (id) => {
+        if (teams) {
+            let _team = teams.filter(team => team._id == id);
+            teams.forEach(t => console.log(">", t._id))
+            console.log(_team);
+            return _team.length > 0 ? _team[0] : null;
+        }
+    }
+
     return (
         <View
             style={styles.container}
@@ -57,16 +72,49 @@ const Teams = () => {
                 selectedIndex={selectedIndex}
                 setSelectedIndex={setSelectedIndex}
             />
+            <Overlay
+                isVisible={toRequestTeam !== null}
+                onBackdropPress={() => setToRequestTeamId(null)}
+            >
+                <MatchRequestForm
+                    teamId={toRequestTeam}
+                    myTeams={[]}
+                />
+            </Overlay>
             <ScrollView>
                 {
                     teamsToView.map(team => {
-                        return (
-                            <Team
-                                name={team.name}
-                                memberCount={team.members.length}
-                                mine={user._id === team.owner}
-                            />
-                        )
+                        if (selectedIndex !== 3) {
+                            return (
+                                <Team
+                                    id={team._id}
+                                    name={team.name}
+                                    memberCount={team.members.length}
+                                    mine={user._id === team.owner}
+                                    requestSent={team.membersRequest.indexOf(user._id) > -1}
+                                    requestMatch={(id) => setToRequestTeamId(id)}
+                                />
+                            )
+                        }
+                        else {
+                            return team.matchesRequest.map(req => {
+                                let requestee = getTeam(req.from);
+
+                                if (!requestee)
+                                    return null;
+
+                                return (
+                                    <MatchRequestUnit
+                                        teamId = {team._id}
+                                        requestee={requestee}
+                                        location={req.location}
+                                        date={req.date}
+                                        message={req.message}
+                                        request={req}
+                                    />
+                                );
+                            })
+                        }
                     })
                 }
             </ScrollView>

@@ -9,7 +9,7 @@ const MemberRequestButton = (props) => {
     return (
         <Button 
             title="Match"
-            onPress={() => alert(1)}
+            onPress={() => props.onClick()}
             style={{
                 marginRight: 5,
             }}

@@ -56,7 +56,7 @@ const Me = (props) => {
                     <Text style={styles.infoTitle}>Join Date</Text>
                 </View>
                 <View style={styles.infoDetailContainer}>
-                    <Text>Feb 18, 2021</Text>
+                    <Text>{user.joinDate}</Text>
                 </View>
             </View>
             <Button 
