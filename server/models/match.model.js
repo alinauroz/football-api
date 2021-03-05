@@ -22,6 +22,10 @@ const matchSchema = new Schema({
         type: Number,
         required: [true, 'Time of match is required']
     },
+    isLive: {
+        type: Boolean,
+        default: false,
+    },
     result: {
         type: Number,
         default: -1

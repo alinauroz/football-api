@@ -44,7 +44,8 @@ exports.signup = catchAsync(async (req, res, next) => {
 		address2,
     })
     
-	await newUser.save();
+	let user = await newUser.save();
+	res.send({status: 'success', data: user});
 });
 
 exports.login = catchAsync(async (req, res, next) => {

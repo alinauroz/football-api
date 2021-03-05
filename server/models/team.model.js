@@ -15,6 +15,11 @@ const teamSchema = new Schema({
         type: String,
         required: [true, 'Team name is required']
     },
+    tname: {
+        type: String,
+        unique: [true, 'Team Unique name should be unique'],
+        required: [true, 'Team unique name is required']
+    },
     membersRequest: {
         type: [String],
         default: []

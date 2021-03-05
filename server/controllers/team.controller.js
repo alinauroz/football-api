@@ -127,7 +127,7 @@ exports.acceptMemberRequest = catchAsync(async (req, res, next) => {
 
     res.send({
         status: 'success',
-        data: match,
+        data: {},
     });
 
 });

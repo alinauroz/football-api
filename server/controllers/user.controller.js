@@ -3,6 +3,9 @@ const AppError = require('../utils/appError')
 const User = require('../models/user.model')
 const factory = require('./handlerFactory')
 
+
+exports.getAll = factory.getAll(User);
+
 exports.getCount = catchAsync(async function (req, res, next) {
 	
 	const total = await User.countDocuments()
