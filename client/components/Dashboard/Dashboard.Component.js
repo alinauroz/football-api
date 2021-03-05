@@ -1,6 +1,8 @@
 import React from 'react';
-import {ScrollView, View} from 'react-native'
-import styles from './Dashboard.Style'
+import { ScrollView, View } from 'react-native';
+import { Overlay } from 'react-native-elements';
+import styles from './Dashboard.Style';
+import CreateTeamForm from '../Team/Team.Create'
 
 import Buttons from './Buttons'
 
@@ -10,6 +12,11 @@ const Dashbaord = () => {
         <ScrollView
             style={styles.container}
         >
+            <Overlay
+                isVisible={true}
+            >
+                <CreateTeamForm/>
+            </Overlay>
             <View>
                 <Buttons/>
             </View>
