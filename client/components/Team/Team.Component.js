@@ -24,7 +24,13 @@ const Teams = () => {
     const onMatchRequestSent = () => {
         setToRequestTeamId(null);
         Toast.show({
-            text1: 'Request Sent'
+            text1: 'Match Request Sent'
+        })
+    }
+
+    const onMemberRequestSent = () => {
+        Toast.show({
+            text1: 'Join Request Sent'
         })
     }
 
@@ -122,6 +128,7 @@ const Teams = () => {
                                     mine={user._id === team.owner}
                                     requestSent={team.membersRequest.indexOf(user._id) > -1}
                                     requestMatch={(id) => setToRequestTeamId(id)}
+                                    onMemberRequestSent={onMemberRequestSent}
                                 />
                             )
                         }
@@ -141,6 +148,7 @@ const Teams = () => {
                                         date={req.date}
                                         message={req.message}
                                         request={req}
+                                        
                                     />
                                 );
                             })

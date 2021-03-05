@@ -24,6 +24,7 @@ const MemberRequestButton = (props) => {
             })
             if (res.status === 'success') {
                 setSent(true);
+                props.onMemberRequestSent();
                 setContent('Sent');
             }
 

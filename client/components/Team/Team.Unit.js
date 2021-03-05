@@ -54,6 +54,7 @@ const Team = (props) => {
                             <MemberRequestButton 
                                 teamId={props.id}
                                 alreadySent={props.requestSent}
+                                onMemberRequestSent={props.onMemberRequestSent}
                             />
                             <MatchRequestButton 
                                 onClick={() => props.requestMatch(props.id)}
