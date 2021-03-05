@@ -6,11 +6,12 @@ import Buttons from './ButtonGroup';
 import user from '../../utils/user';
 
 import Team from './Team.Unit';
-import MatchRequestUnit from './Request.Match.Unit'
+import MatchRequestUnit from './Request.Match.Unit';
+import MemberRequestUnit from './Request.Member.Unit';
 import request from '../../utils/request';
-import Toast from 'react-native-toast-message'
+import Toast from 'react-native-toast-message';
 
-import MatchRequestForm from '../Matches/Match.Request'
+import MatchRequestForm from '../Matches/Match.Request';
 
 const Teams = () => {
 
@@ -18,6 +19,7 @@ const Teams = () => {
     const [teams, setTeams] = React.useState([]);
     const [teamsToView, _setTeamsToView] = React.useState([]);
     const [toRequestTeam, setToRequestTeamId] = React.useState(null);
+    const [users, setUsers] = React.useState([]);
 
     const onMatchRequestSent = () => {
         setToRequestTeamId(null);
@@ -60,16 +62,32 @@ const Teams = () => {
         }
     }
 
+    const getUsers = async () => {
+        let _users = await request({
+            route: 'users',
+            type: 'GET',
+        });
+        if (_users.data) {
+            setUsers(_users.data);
+        }
+    }
+
     React.useEffect(() => {
         getTeams();
+        getUsers();
     }, []);
 
     const getTeam = (id) => {
         if (teams) {
             let _team = teams.filter(team => team._id == id);
-            teams.forEach(t => console.log(">", t._id))
-            console.log(_team);
             return _team.length > 0 ? _team[0] : null;
+        }
+    }
+
+    const getUser = (id) => {
+        if (users) {
+            let _user = users.filter(user => user._id == id);
+            return _user.length > 0 ? _user[0] : null;
         }
     }
 
@@ -108,7 +126,8 @@ const Teams = () => {
                             )
                         }
                         else {
-                            return team.matchesRequest.map(req => {
+                            let matchRequests, memberRequests;
+                            matchRequests = team.matchesRequest.map(req => {
                                 let requestee = getTeam(req.from);
 
                                 if (!requestee)
@@ -125,6 +144,22 @@ const Teams = () => {
                                     />
                                 );
                             })
+                            memberRequests = team.membersRequest.map(userId => {
+                                let requestee = getUser(userId);
+
+                                if (!requestee)
+                                    return null;
+
+                                return (
+                                    <MemberRequestUnit
+                                        key={userId}
+                                        userId={userId}
+                                        requestee={requestee}
+                                    />
+                                )
+
+                            });
+                            return [matchRequests, memberRequests];
                         }
                     })
                 }

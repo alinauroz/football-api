@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { Card, Button } from 'react-native-elements';
 import { Text, Image, View, Dimensions } from 'react-native';
-import teamLogo from '../../res/team-logo.png';
 import styles from './Team.Style';
 import request from '../../utils/request';
+
+const profilePhoto = {
+    uri: 'https://thumbs.dreamstime.com/b/creative-illustration-default-avatar-profile-placeholder-isolated-background-art-design-grey-photo-blank-template-mockup-144849704.jpg'
+}
 
 const Request = (props) => {
 
@@ -49,14 +52,14 @@ const Request = (props) => {
                         resizeMode: 'contain',
                         marginTop: '10%'
                     }}
-                    source={teamLogo}
+                    source={profilePhoto}
                 />
             </View>
             <View style={{
                 width: (Dimensions.get('window').width) * 0.7 - 90,
             }}>
-                <Text style={styles.teamName}>{props.requestee.name}</Text>
-                <Text style={styles.memberCount}>{props.date} - {props.location}</Text>
+                <Text style={styles.teamName}>{props.requestee.firstName + " " + props.requestee.lastName}</Text>
+                <Text style={styles.memberCount}>{props.requestee.email}</Text>
                 <Text style={styles.memberCount}>{props.message}</Text>
                 <View 
                     style={{
