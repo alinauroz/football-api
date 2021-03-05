@@ -31,6 +31,7 @@ const Buttons = (props) => {
 
     return (
         <ButtonGroup
+          onPress={(index) => props.setSelectedIndex(index)}
           buttons={buttons}
           containerStyle={{height: 100}}
         />

@@ -3,23 +3,39 @@ import { ScrollView, View } from 'react-native';
 import { Overlay } from 'react-native-elements';
 import styles from './Dashboard.Style';
 import CreateTeamForm from '../Team/Team.Create'
+import Toast from 'react-native-toast-message';
 
 import Buttons from './Buttons'
 
 const Dashbaord = () => {
+
+    const [selectedIndex, setSelectedIndex] = React.useState(null);
+
+    const onTeamCreate = () => {
+        Toast.show({
+            text1: 'Team Created Successfully'
+        });
+        setSelectedIndex(null);
+    }
 
     return (
         <ScrollView
             style={styles.container}
         >
             <Overlay
-                isVisible={true}
+                isVisible={selectedIndex === 0}
+                onBackdropPress={() => setSelectedIndex(null)}
             >
-                <CreateTeamForm/>
+                <CreateTeamForm
+                    onTeamCreate={onTeamCreate}
+                />
             </Overlay>
             <View>
-                <Buttons/>
+                <Buttons
+                    setSelectedIndex={setSelectedIndex}
+                />
             </View>
+            <Toast ref={(ref) => Toast.setRef(ref)} />
         </ScrollView>
         )
 

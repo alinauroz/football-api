@@ -4,7 +4,7 @@ import { View, Text, Dimensions } from 'react-native';
 import { Button } from 'react-native-elements';
 import request from '../../utils/request'
 
-const CreateTeam = () => {
+const CreateTeam = (props) => {
 
     const [name, setName] = useState('');
     const [uniqueName, setUniqueName] = useState('');
@@ -18,11 +18,14 @@ const CreateTeam = () => {
                 type: 'POST',
                 body: {
                     name,
-                    uniqueName
+                    tname: uniqueName
                 }
             });
             setLoading(false);
             console.log(res);
+            if (res.status === 'success') {
+                props.onTeamCreate();
+            }
         }
         catch(err) {
             setLoading(false);
@@ -60,6 +63,7 @@ const CreateTeam = () => {
                 title='Create'
                 loading={loading}
                 disabled={loading}
+                onPress={createTeam}
                 containerStyle={{
                     marginTop: 30,
                 }}
