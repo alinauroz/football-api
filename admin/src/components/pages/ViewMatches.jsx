@@ -34,14 +34,14 @@ export default function (props) {
 
         if (data) return;
 
-        let res = await fetch(api + 'teams');
+        let res = await fetch(api + 'matches');
         let data_ = await res.json();
 
         data_.data.forEach(post => {
-            post.img = {
-                type: 'image',
-                src: 'https://i.pinimg.com/originals/b3/62/68/b362686170e30ca7ee9a0f9ebe4a2d1d.gif'
-            }
+            //post.img = {
+            //    type: 'image',
+            //    src: post.image
+            //}
         })
 
         setData(data_);
@@ -51,7 +51,7 @@ export default function (props) {
     return (
         <div className = 'card'>
             <h3 style = {{margin: 0, marginBottom: 10}}>
-                View Teams
+                View Matches
                 <span
                     style={{
                         float: 'right',
