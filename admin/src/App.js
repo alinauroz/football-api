@@ -8,6 +8,7 @@ import AddNews from './components/pages/AddNews'
 import ViewNews from './components/pages/ViewNews'
 import ViewTeams from './components/pages/ViewTeams'
 import ViewMatches from './components/pages/ViewMatches'
+import EditMatch from './components/pages/EditMatch'
 
 import cookieParser from './utils/cookieParser'
 
@@ -42,6 +43,7 @@ export default function () {
     {title: 'View News', onClick : () => setScreen('ViewNews')},
     {title: 'View Teams', onClick : () => setScreen('ViewTeams')},
     {title: 'View Matches', onClick : () => setScreen('ViewMatches')},
+    {title: 'Edit Match', onClick : () => setScreen('EditMatch')},
   ]);
 
   if (isLoggedIn) {
@@ -63,6 +65,9 @@ export default function () {
         </div>
         <div style = {{display : screen == 'ViewMatches' ? 'block' : 'none'}}>
           <ViewMatches base = {base} setBase = {setAppBase} setScreen = {setScreen} />
+        </div>
+        <div style = {{display : screen == 'EditMatch' ? 'block' : 'none'}}>
+          <EditMatch base = {base} setBase = {setAppBase} setScreen = {setScreen} />
         </div>
       </div>
     </>
