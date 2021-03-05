@@ -160,6 +160,7 @@ const Teams = () => {
 
                                 return (
                                     <MemberRequestUnit
+                                        teamId={team._id}
                                         key={userId}
                                         userId={userId}
                                         requestee={requestee}

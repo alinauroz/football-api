@@ -11,24 +11,31 @@ const profilePhoto = {
 const Request = (props) => {
 
     const [loading, setLoading] = useState(false);
-    const [accepted, setAccepted] = useState(false);
+    const [response, setResponse] = useState(0);
 
-    const respondToRequest = async (teamId, requestId, action='accept') => {
+    const respondToRequest = async (teamId, userId, action='accept') => {
         try {
             setLoading(true);
             let res = await request({
-                route: `teams/matches/request/${action}/`,
+                route: `teams/members/request/${action}/`,
                 type: 'POST',
                 body: {
                     teamId,
-                    requestId,
+                    userId,
                 }
             });
+            console.log(res);
+            setLoading(false);
+            setResponse(1);
         }
         catch (err) {
             setLoading(false);
             console.log(err);
         }
+    }
+
+    if (response) {
+        return null;
     }
 
     return (
@@ -81,7 +88,7 @@ const Request = (props) => {
                         }}
                         onPress={() => respondToRequest(
                             props.teamId,
-                            props.request._id,
+                            props.requestee._id,
                             'accept' 
                         )}
                     />
