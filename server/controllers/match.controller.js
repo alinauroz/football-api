@@ -24,7 +24,6 @@ exports.addSummary = catchAsync(async (req, res, next) => {
     }
 
     if (action) {
-        console.log('Working')
         await Match.updateOne({
             _id: id
         }, {$push: { summary: {
@@ -32,7 +31,27 @@ exports.addSummary = catchAsync(async (req, res, next) => {
                 team,
                 action
             }}
-        })
+        });
+
+        if (action === 'goal') {
+
+            let goalCount = 0;
+
+            io.sockets.emit('goal', {
+                player,
+                team,
+                goals: goalCount,
+            });
+
+        }
+        else {
+            io.sockets.emit('matchUpdate', {
+                action,
+                team,
+                player
+            })
+        }
+
     }
 
     res.send({
