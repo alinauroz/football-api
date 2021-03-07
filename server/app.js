@@ -5,8 +5,11 @@ const globalErrorHandler = require('./controllers/error.controller')
 const AppError = require('./utils/appError')
 const cookieParser = require('cookie-parser')
 const cors = require('cors');
+const io = require('./utils/socket.io');
 
 const app = express();
+const http = require('http').Server(app);
+io.init(http);
 
 // implement CORS
 
@@ -46,4 +49,4 @@ app.all('*', (req, res, next) => {
 })
 app.use(globalErrorHandler)
 
-module.exports = app;
+module.exports = {app, http};

@@ -3,11 +3,11 @@ const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
 dotenv.config()
 
-const app = require('./app')
+const _server = require('./app');
 
 const port = process.env.PORT || 5001
 
-const server = app.listen(port, () => {
+const server = _server.http.listen(port, () => {
 	console.log(`Running on port ${port}`)
 })
 
