@@ -43,6 +43,10 @@ const matchSchema = new Schema({
                 type: Schema.ObjectId,
                 default: ''
             },
+            team: {
+                type: Schema.ObjectId,
+                default: ''
+            },
             time: {
                 type: Number,
                 default: Date.now()
