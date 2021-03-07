@@ -18,20 +18,20 @@ exports.addSummary = catchAsync(async (req, res, next) => {
     } = req.body;
 
     if (typeof isLive !== undefined) {
-        await Match.findOneAndUpdate({
+        await Match.updateOne({
             _id: id
         }, {isLive})
     }
 
     if (action) {
+        console.log('Working')
         await Match.updateOne({
             _id: id
-        }, {
-            $push: {
+        }, {$push: { summary: {
                 player,
                 team,
                 action
-            }
+            }}
         })
     }
 

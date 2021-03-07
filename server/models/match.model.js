@@ -41,11 +41,11 @@ const matchSchema = new Schema({
             },
             player: {
                 type: Schema.ObjectId,
-                default: ''
+                default: null
             },
             team: {
                 type: Schema.ObjectId,
-                default: ''
+                default: null
             },
             time: {
                 type: Number,
