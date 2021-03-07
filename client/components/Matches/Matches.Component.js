@@ -5,6 +5,7 @@ import PastMatch from './Matches.Past.Unit';
 import UpcomingMatch from './Matches.Upcoming.Unit';
 import LiveMatch from './Matches.Live.Unit';
 import request from '../../utils/request';
+import socket from '../../utils/socket.io';
 
 const Matches = (props) => {
 
@@ -17,13 +18,13 @@ const Matches = (props) => {
         let __matches;
         let now = Date.now();
         if (selectedIndex === 0) {
-            __matches = __matches.filter(match => match.time > now);
+            __matches = _matches.filter(match => match.time > now);
         }
         else if (selectedIndex === 1) {
-            __matches = __matches.filter(match => match.isLive)
+            __matches = _matches.filter(match => match.isLive)
         }
         else if (selectedIndex === 2) {
-            __matches = __matches.filter(match => (match.time < now) && !match.isLive)
+            __matches = _matches.filter(match => (match.time < now) && !match.isLive)
         }
         setMatchesToView(__matches);
     }
@@ -33,14 +34,18 @@ const Matches = (props) => {
             route: 'matches',
             type: 'GET',
         });
-        console.log("MATCHES")
-        console.log(res);
+        
         if (res.status === 'success') {
             setMatches(res.data);
             setMatchesToView(res.data);
             filterMatches(res.data);
         }
+
     }
+
+    React.useEffect(() => {
+        filterMatches();
+    }, [selectedIndex])
 
     React.useEffect(() => {
         getMatches();
@@ -68,23 +73,29 @@ const Matches = (props) => {
                 {
                     (() => {
                         if (selectedIndex === 0) {
-                            return matchesToView.map(() => {
+                            return matchesToView.map((match) => {
                                 return (
-                                    <UpcomingMatch />
+                                    <UpcomingMatch 
+                                        key={match._id}
+                                    />
                                 )
                             })
                         } 
                         else if (selectedIndex === 1) {
-                            return matchesToView.map(() => {
+                            return matchesToView.map((match) => {
                                 return (
-                                    <LiveMatch />
+                                    <LiveMatch 
+                                        key={match._id}
+                                    />
                                 )
                             })
                         } 
                         else if (selectedIndex === 2) {
-                            return matchesToView.map(() => {
+                            return matchesToView.map((match) => {
                                 return (
-                                    <PastMatch />
+                                    <PastMatch 
+                                        key={match._id}
+                                    />
                                 )
                             })
                         } 
