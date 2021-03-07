@@ -109,6 +109,11 @@ const Request = (props) => {
                             color: '#333',
                             fontWeight: '600'
                         }}
+                        onPress={() => respondToRequest(
+                            props.teamId,
+                            props.requestee._id,
+                            'reject' 
+                        )}
                     />
                 </View>
             </View>

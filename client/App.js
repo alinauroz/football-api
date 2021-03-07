@@ -18,6 +18,7 @@ import {
 import styles from './App.style'
 
 import Login from './components/Login/Login.Component'
+import SignUp from './components/SignUp/SignUp.Component'
 import Home from './components/Home/Home.Component'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {get} from './utils/storage';
@@ -26,6 +27,7 @@ import user from './utils/user'
 const App = () => {
 
   const [loggedIn, setLoggedIn] = React.useState();
+  const [screen, setScreen] = React.useState('login');
 
   React.useEffect(() => {
 
@@ -48,7 +50,9 @@ const App = () => {
       {
         loggedIn ?
         <Home reload={() => setLoggedIn(false)} />:
-        <Login reload={() => setLoggedIn(true)} />
+        screen === 'login' ?
+        <Login reload={() => setLoggedIn(true)} setScreen={setScreen}/>
+        : <SignUp reload={() => setLoggedIn(true)} setScreen={setScreen}/>
       }
       </View>
     </SafeAreaView>

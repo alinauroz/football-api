@@ -10,7 +10,7 @@ import { Button } from 'react-native-elements';
 import Input from '../Basic/Input/Input.component';
 import CoverPhoto from '../../res/login-cover.jpg';
 import commonStyles from '../../common/styles';
-import styles from './Login.style'
+import styles from './SignUp.style'
 import request from '../../utils/request'
 import {set, get} from '../../utils/storage'
 import user from '../../utils/user'
@@ -20,28 +20,32 @@ const Login = (props) => {
 
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [firstName, setFirstName] = React.useState('');
+    const [lastName, setLastName] = React.useState('');
     const [loading, setLoading] = React.useState(false);
     const [error, setError] = React.useState('');
 
-    const login = async () => {
+    const signup = async () => {
         try {
+            console.log('Working')
             setLoading(true);
             let res = await request({
-                route: 'users/login',
+                route: 'users/signup',
                 type: 'POST',
                 body: {
+                    firstName,
+                    lastName,
                     email: username,
                     password
                 }
             })
+
+            console.log(res);
             
             if (res.status === 'success') {
-                res.data.token = res.token;
-                user.setData(res.data);
-                set("user", res.data);
-                set("token", res.token);
-                console.log(res.token, res.data)
-                props.reload();
+                alert('Account created')
+                props.setScreen('login');
+                setLoading(false);
             }
             else {
                 setError(res.message ? res.message: 'Unknown error occurred');
@@ -71,7 +75,15 @@ const Login = (props) => {
             message={error}
         />
         <Input 
-            placeholder="Username"
+            placeholder="First name"
+            onChangeText={(val) => setFirstName(val)}
+        />
+        <Input 
+            placeholder="Last Name"
+            onChangeText={(val) => setLastName(val)}
+        />
+        <Input 
+            placeholder="Email"
             onChangeText={(val) => setUsername(val)}
         />
         <Input 
@@ -80,15 +92,15 @@ const Login = (props) => {
             secureTextEntry={true}
         />
         <Button
-          title="Sign In"
-          onPress={login}
+          title="Sign Up"
+          onPress={signup}
           style={{
               marginTop: 10
           }}
           loading={loading}
         />
         <TouchableOpacity
-            onPress={() => props.setScreen('signup')}
+            onPress={() => props.setScreen('login')}
         >
         <View
             style={styles.noteContainer}
@@ -96,7 +108,7 @@ const Login = (props) => {
             <Text
                 style={commonStyles.note}
             >
-              Create a new account
+              Already have an account, Login
             </Text>
         </View>
         </TouchableOpacity>
