@@ -1,7 +1,7 @@
 import {set, get} from './storage'
 import user from './user'
 
-const api = "http://localhost:5001/"
+export const api = "http://localhost:5001/"
 
 export default request = async (data) => {
 

@@ -59,6 +59,7 @@ const Login = (props) => {
             console.log("ERROR", err);
             setError(res.message ? res.message: 'Unknown error occurred');
             setLoading(false);
+            throw err;
         }
     }
 

@@ -33,7 +33,7 @@ const Login = (props) => {
                     email: username,
                     password
                 }
-            })
+            });
             
             if (res.status === 'success') {
                 res.data.token = res.token;
@@ -48,13 +48,13 @@ const Login = (props) => {
             }
 
             console.log(res);
-
             setLoading(false);
         }
         catch (err) {
             console.log("ERROR", err);
             setError(res.message ? res.message: 'Unknown error occurred');
             setLoading(false);
+            throw err;
         }
     }
 
