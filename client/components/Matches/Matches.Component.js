@@ -76,6 +76,7 @@ const Matches = (props) => {
                             return matchesToView.map((match) => {
                                 return (
                                     <UpcomingMatch 
+                                        summary={match.summary}
                                         key={match._id}
                                     />
                                 )
@@ -85,6 +86,7 @@ const Matches = (props) => {
                             return matchesToView.map((match) => {
                                 return (
                                     <LiveMatch 
+                                        summary={match.summary}
                                         key={match._id}
                                     />
                                 )
@@ -93,7 +95,8 @@ const Matches = (props) => {
                         else if (selectedIndex === 2) {
                             return matchesToView.map((match) => {
                                 return (
-                                    <PastMatch 
+                                    <PastMatch
+                                        summary={match.summary}
                                         key={match._id}
                                     />
                                 )
