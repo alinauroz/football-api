@@ -2,13 +2,14 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const Match = require('../models/match.model');
 const factory = require('./handlerFactory');
-const io = require('../utils/socket.io');
+const { getIo } = require('../utils/socket.io');
 
 exports.getAll = factory.getAll(Match);
 
 exports.addSummary = catchAsync(async (req, res, next) => {
 
     const id = req.params.id;
+    const io = getIo();
 
     const {
         action,
@@ -20,13 +21,18 @@ exports.addSummary = catchAsync(async (req, res, next) => {
     if (typeof isLive !== undefined) {
         await Match.updateOne({
             _id: id
-        }, {isLive})
+        }, {isLive});
+        io.sockets.emit('updateLive', {
+            matchId: id,
+            status: isLive,
+        });
     }
 
     if (action) {
         await Match.updateOne({
             _id: id
         }, {$push: { summary: {
+                matchId: id,
                 player,
                 team,
                 action
@@ -38,6 +44,7 @@ exports.addSummary = catchAsync(async (req, res, next) => {
             let goalCount = 0;
 
             io.sockets.emit('goal', {
+                matchId: id,
                 player,
                 team,
                 goals: goalCount,
@@ -46,6 +53,7 @@ exports.addSummary = catchAsync(async (req, res, next) => {
         }
         else {
             io.sockets.emit('matchUpdate', {
+                matchId: id,
                 action,
                 team,
                 player

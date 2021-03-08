@@ -1,9 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const rootRouter = require('./routes/router')
-const globalErrorHandler = require('./controllers/error.controller')
-const AppError = require('./utils/appError')
-const cookieParser = require('cookie-parser')
+const rootRouter = require('./routes/router');
+const globalErrorHandler = require('./controllers/error.controller');
+const AppError = require('./utils/appError');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const io = require('./utils/socket.io');
 
@@ -13,7 +13,7 @@ io.init(http);
 
 // implement CORS
 
-var whitelist = []
+var whitelist = [];
 
 const urls = ['http://161.97.126.249', 'http://localhost', 'http://127.0.0.1'];
 const ports = [3000, 3001, 3002, 3003, 3004, 8420, 80, 443];

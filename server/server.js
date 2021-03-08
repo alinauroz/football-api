@@ -1,7 +1,7 @@
-const mongoose = require('mongoose')
-const dotenv = require('dotenv')
-const bodyParser = require('body-parser')
-dotenv.config()
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
+dotenv.config();
 
 const _server = require('./app');
 
