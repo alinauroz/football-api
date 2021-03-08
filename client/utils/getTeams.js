@@ -12,6 +12,6 @@ export default getTeams = (query) => {
 
 }
 
-export const getById = (id) => {
+export const getTeamById = (id) => {
     return find(teams, {_id: id});
 }

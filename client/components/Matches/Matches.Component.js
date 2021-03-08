@@ -7,7 +7,8 @@ import LiveMatch from './Matches.Live.Unit';
 import request from '../../utils/request';
 import socket from '../../utils/socket.io';
 import Toast from 'react-native-toast-message';
-import find from 'lodash';
+import { countGoals } from '../../utils/summaryParser';
+import { getTeamById } from '../../utils/getTeams';
 
 const Matches = (props) => {
 
@@ -28,6 +29,7 @@ const Matches = (props) => {
         else if (selectedIndex === 2) {
             __matches = _matches.filter(match => (match.time < now) && !match.isLive)
         }
+        console.log(__matches.length)
         setMatchesToView(__matches);
     }
 
@@ -45,6 +47,22 @@ const Matches = (props) => {
 
     }
 
+    const handleUpdateLiveEvent = (matchId, status) => {
+        console.log(">LENGTH", matches.length)
+
+            for (let i = 0; i < matches.length; i++) {
+                if (matches[i]._id == matchId) {
+                    matches[i].isLive = status;
+                    break;
+                }
+            }
+
+
+            console.log("LENGTH", matches.length)
+            setMatches(matches);
+            filterMatches(matches);
+    }
+
     React.useEffect(() => {
         socket.on('updateLive', function(data) {
             if (data.status) {
@@ -52,17 +70,9 @@ const Matches = (props) => {
                     text1: 'A match is live now'
                 })
             }
-
-            for (let i = 0; i < matches.length; i++) {
-                if (matches[i]._id == data.matchId) {
-                    console.log('Updating')
-                    matches[i].isLive = data.status
-                }
-            }
-            setMatches([... matches]);
-            filterMatches();
+            handleUpdateLiveEvent(data.matchId, data.status)
         })
-    }, [])
+    }, [matches]);
 
     React.useEffect(() => {
         filterMatches();
@@ -96,7 +106,10 @@ const Matches = (props) => {
                         if (selectedIndex === 0) {
                             return matchesToView.map((match) => {
                                 return (
-                                    <UpcomingMatch 
+                                    <UpcomingMatch
+                                        goals={countGoals(match.summary)}
+                                        teamA={getTeamById(match.team1)}
+                                        teamb={getTeamById(match.team2)}
                                         summary={match.summary}
                                         key={match._id}
                                     />
@@ -106,7 +119,10 @@ const Matches = (props) => {
                         else if (selectedIndex === 1) {
                             return matchesToView.map((match) => {
                                 return (
-                                    <LiveMatch 
+                                    <LiveMatch
+                                        goals={countGoals(match.summary)}
+                                        teamA={getTeamById(match.team1)}
+                                        teamb={getTeamById(match.team2)}
                                         summary={match.summary}
                                         key={match._id}
                                     />
@@ -117,6 +133,9 @@ const Matches = (props) => {
                             return matchesToView.map((match) => {
                                 return (
                                     <PastMatch
+                                        goals={countGoals(match.summary)}
+                                        teamA={getTeamById(match.team1)}
+                                        teamb={getTeamById(match.team2)}
                                         summary={match.summary}
                                         key={match._id}
                                     />

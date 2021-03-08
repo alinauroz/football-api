@@ -6,6 +6,9 @@ import TeamLogo from '../../res/team-logo.png';
 
 const PastMatch = (props) => {
 
+    //console.log("PROPS");
+    //console.log(props);
+
     return (
         <Card>
             <View style={styles.matchTeamsContainer}>
