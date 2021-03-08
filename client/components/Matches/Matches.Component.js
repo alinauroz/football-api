@@ -6,6 +6,8 @@ import UpcomingMatch from './Matches.Upcoming.Unit';
 import LiveMatch from './Matches.Live.Unit';
 import request from '../../utils/request';
 import socket from '../../utils/socket.io';
+import Toast from 'react-native-toast-message';
+import find from 'lodash';
 
 const Matches = (props) => {
 
@@ -42,6 +44,25 @@ const Matches = (props) => {
         }
 
     }
+
+    React.useEffect(() => {
+        socket.on('updateLive', function(data) {
+            if (data.status) {
+                Toast.show({
+                    text1: 'A match is live now'
+                })
+            }
+
+            for (let i = 0; i < matches.length; i++) {
+                if (matches[i]._id == data.matchId) {
+                    console.log('Updating')
+                    matches[i].isLive = data.status
+                }
+            }
+            setMatches([... matches]);
+            filterMatches();
+        })
+    }, [])
 
     React.useEffect(() => {
         filterMatches();
@@ -105,6 +126,7 @@ const Matches = (props) => {
                     })()
                 }
             </ScrollView>
+            <Toast ref={(ref) => Toast.setRef(ref)} />
         </View>
     )
 
