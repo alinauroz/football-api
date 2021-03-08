@@ -20,3 +20,7 @@ export const countGoals = function (summary, teamA, teamB) {
     }
 
 }
+
+export const getLatestAction = function (summary) {
+    return summary[summary.length - 1];
+}
