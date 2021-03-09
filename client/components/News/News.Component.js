@@ -13,9 +13,9 @@ const News = (props) => {
         request({
             route: 'news',
             type: 'GET'
-        }).then(d => {
-            if (d.status === 'success')
-                setNews(d.data);
+        }).then(res => {
+            if (res.status === 'success')
+                setNews(res.data);
         })
 
     }, [])
