@@ -40,7 +40,7 @@ const Me = (props) => {
                     <Text style={styles.infoTitle}>Phone</Text>
                 </View>
                 <View style={styles.infoDetailContainer}>
-                    <Text>+92 (336) 649 6825</Text>
+                    <Text>{''}</Text>
                 </View>
             </View>
             <View style={styles.infoContainer}>
@@ -48,7 +48,7 @@ const Me = (props) => {
                     <Text style={styles.infoTitle}>City</Text>
                 </View>
                 <View style={styles.infoDetailContainer}>
-                    <Text>Multan</Text>
+                    <Text>{''}</Text>
                 </View>
             </View>
             <View style={styles.infoContainer}>

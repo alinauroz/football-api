@@ -21,9 +21,11 @@ const userSchema = new mongoose.Schema(
 		},
 		phone: {
 			type: String,
+			default: ''
 		},
 		city: {
 			type: String,
+			default: ''
 		},
 		password: {
 			type: String,
