@@ -54,12 +54,26 @@ const Matches = (props) => {
                     break;
                 }
             }
-
-
-            console.log("LENGTH", matches.length)
             setMatches(matches);
             filterMatches(matches);
     }
+
+    const handleUpdateGoal= (matchId, team, data={}) => {
+
+        for (let i = 0; i < matches.length; i++) {
+            if (matches[i]._id == matchId) {
+                let match = matches[i];
+                    match.summary.push({
+                        action: 'goal',
+                        team: team
+                    });
+                break;
+            }
+        }
+        setMatches([ ... matches]);
+        filterMatches(matches);
+    }
+
 
     React.useEffect(() => {
         socket.on('updateLive', function(data) {
@@ -70,8 +84,8 @@ const Matches = (props) => {
             }
             handleUpdateLiveEvent(data.matchId, data.status)
         });
-        socket.on('goal', function (data) {
-            
+        socket.once('goal', function (data) {
+            handleUpdateGoal(data.matchId, data.team);
         });
     }, [matches]);
 
