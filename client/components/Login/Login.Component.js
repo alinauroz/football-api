@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import { Button } from 'react-native-elements';
 import Input from '../Basic/Input/Input.component';
-import CoverPhoto from '../../res/login-cover.jpg';
+import CoverPhoto from '../../res/login-cover.png';
 import commonStyles from '../../common/styles';
 import styles from './Login.style'
 import request from '../../utils/request'
@@ -63,8 +63,11 @@ const Login = (props) => {
         <Image 
             source={CoverPhoto}
             style={{
-                width: Dimensions.get('window').width - 40,
-                resizeMode: 'contain'
+                width: Dimensions.get('window').width - 120,
+                alignSelf: 'center',
+                resizeMode: 'contain',
+                marginBottom: 40,
+                marginTop: 30,
             }}
         />
         <Error 
