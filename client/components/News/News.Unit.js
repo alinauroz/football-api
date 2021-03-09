@@ -11,7 +11,9 @@ const Unit = (props) => {
     return (
         <Card>
             <Image 
-                source={Cover}
+                source={{
+                    uri: props.image
+                }}
                 style={{
                     width: '100%',
                     height: 200
