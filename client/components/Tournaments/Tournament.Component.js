@@ -50,6 +50,7 @@ const Tournament = function (props) {
             </View>
         </Overlay>
         <ScrollView style={styles.container}>
+            <Text style={{fontSize: 32, fontWeight: '600', margin: 20,}}>Tournaments</Text>
             {
                 tournaments.map((tournament, index) => {
 
