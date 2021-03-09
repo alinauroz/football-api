@@ -18,7 +18,7 @@ exports.addSummary = catchAsync(async (req, res, next) => {
         isLive,
     } = req.body;
 
-    if (typeof isLive !== undefined) {
+    if (typeof isLive !== "undefined") {
         await Match.updateOne({
             _id: id
         }, {isLive});

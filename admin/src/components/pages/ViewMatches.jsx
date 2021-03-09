@@ -6,7 +6,7 @@ import {request} from '../../utils/request'
 
 export default function (props) {
 
-    const [data, setData] = React.useState([]);
+    const [data, setData] = React.useState();
     const [pageSize, setPageSize] = React.useState(10);
     const [startIndex, setStartIndex] = React.useState(0);
 
@@ -17,17 +17,12 @@ export default function (props) {
     const deletePage = async (e, data) => {
         e.target.disabled = true;
         let res = await request({
-            route: 'news/',
+            route: 'matches/',
             params: data._id,
             method: 'DELETE',
             credentials: 'include'
         })
         if (res.status == 'success') setData([])
-    }
-
-    const EditAction = async (e, _data, index) => {
-        props.setBase(data[index], 'post', true);
-        props.setScreen('EditPost');
     }
 
     (async () => {
@@ -37,6 +32,8 @@ export default function (props) {
         let res = await fetch(api + 'matches');
         let data_ = await res.json();
 
+        console.log("MATCHES")
+
         data_.data.forEach(post => {
             //post.img = {
             //    type: 'image',
@@ -44,7 +41,7 @@ export default function (props) {
             //}
         })
 
-        setData(data_.data);
+        setData(data_);
 
     })()
 
@@ -71,10 +68,9 @@ export default function (props) {
                 data ?
                 <>
                 <Viewer 
-                    data = {data.slice(startIndex, pageSize + startIndex)}
+                    data = {data.data.slice(startIndex, pageSize + startIndex)}
                     hidden = {['_id', 'image']}
                     actions = {[
-                        {onClick: EditAction, value: 'Edit', className : 'btn btn-primary margin-5'},
                         {onClick: deletePage, value: 'Delete', className : 'btn btn-danger margin-5', break: true}
                     ]}
                 />

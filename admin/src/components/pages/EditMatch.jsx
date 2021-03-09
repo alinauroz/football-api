@@ -8,23 +8,34 @@ import { request } from '../../utils/request'
 
 export default function (props) {
 
-    const [title, setTitle] = React.useState('')
-    const [content, setContent] = React.useState('')
-    const [image, setImage] = React.useState('')
-    const [message, setMessage] = React.useState('')
+    const [title, setTitle] = React.useState('');
+    const [action, setAction] = React.useState('goal');
+    const [team, setTeam] = React.useState('');
+    const [id, setId] = React.useState('');
+    const [message, setMessage] = React.useState('');
 
-    const submitNews = async (e) => {
+    const updateLive = (status) => {
+        request({
+            route: 'matches/' + id,
+            credentials: 'include',
+            method: 'PUT',
+            body: {
+                isLive: status
+            }
+        })
+    }
+
+    const submitSummary = async (e) => {
 
         e.target.disbaled = true;
 
         let res = await request({
-            route: 'news',
-            method: 'POST',
+            route: 'matches/' + id,
+            method: 'PUT',
             credentials: 'include',
             body: {
-                highlight: title,
-                body: content,
-                image,
+                action: action.toLocaleLowerCase(),
+                team,
             }
         });
 
@@ -44,10 +55,18 @@ export default function (props) {
             <h3 style = {{margin: 0, marginBottom: 10}}>Edit Match</h3>
 
             <div style={{width: '50%'}}>
+                <div>
+                    <input 
+                        type="text"
+                        className="form-control"
+                        placeholder="Match Id"
+                        onChange={(e) => setId(e.target.value)}
+                    />
+                </div>
                 <h4 style = {{margin: 0, marginBottom: 10}}>Add Summary</h4>
                 <div style = {{display: 'inline-block', width: 'calc(50% - 20px)', marginRight: 20}}>
                     <p>Action</p>
-                    <select className = 'form-control'>
+                    <select className = 'form-control' onChange={(e) => setAction(e.target.value)}>
                         <option>Goal</option>
                         <option>Foul</option>
                         <option>Break</option>
@@ -55,24 +74,19 @@ export default function (props) {
                 </div>
                 <div style = {{display: 'inline-block', width: 'calc(50% - 20px)', marginRight: 20}}>
                     <p>Team</p>
-                    <select className = 'form-control'>
-                        <option>None</option>
-                        <option>Team A</option>
-                        <option>Team B</option>
-                    </select>
+                    <input 
+                        className="form-control"
+                        placeholder="Team Id"
+                        onChange={(e) => setTeam(e.target.value)}
+                    />
                 </div>
-                <div style = {{display: 'inline-block', width: 'calc(50% - 20px)', marginRight: 20}}>
-                    <p>Player</p>
-                    <select className = 'form-control'>
-                        
-                    </select>
-                </div>
-                <div style = {{display: 'inline-block', width: 'calc(50% - 20px)', marginRight: 20}}>
+                <br />
+                <div style = {{display: 'inline-block', width: 'calc(50% - 20px)', marginRight: 20, marginTop: 10}}>
                     <button
                         type = 'button' 
                         value = 'Done'
                         className = 'btn btn-success'
-                        onClick = {submitNews}
+                        onClick = {submitSummary}
                     >
                         <i class="glyphicon glyphicon-ok" style = {{marginRight: 5}}></i>
                         Add to Summary
@@ -87,7 +101,7 @@ export default function (props) {
                         type = 'button' 
                         value = 'Done'
                         className = 'btn btn-success'
-                        onClick = {submitNews}
+                        onClick = {submitSummary}
                     >
                         <i class="glyphicon glyphicon-ok" style = {{marginRight: 5}}></i>
                         Done
@@ -100,6 +114,25 @@ export default function (props) {
                     >
                         <i class="glyphicon glyphicon-ban-circle" style = {{marginRight: 5}}></i>
                         Cancel
+                    </button>
+                    <button
+                        type = 'button' 
+                        style={{marginLeft: 5}}
+                        className = 'btn btn-success'
+                        onClick = {() => updateLive(true)}
+                    >
+                        <i class="glyphicon glyphicon-ok" style = {{marginRight: 5}}></i>
+                        Match: Live
+                    </button>
+
+                    <button
+                        type = 'button' 
+                        style={{marginLeft: 5}}
+                        className = 'btn btn-success'
+                        onClick = {() => updateLive(false)}
+                    >
+                        <i class="glyphicon glyphicon-ok" style = {{marginRight: 5}}></i>
+                        Match: Offline
                     </button>
             </div>
         </div>
