@@ -3,6 +3,7 @@ import {api} from '../../data/api'
 import Viewer from '../../utils/Viewer'
 import Pager from '../../utils/Pager'
 import {request} from '../../utils/request'
+import {getTeamById} from '../../utils/getTeams'
 
 export default function (props) {
 
@@ -34,11 +35,16 @@ export default function (props) {
 
         console.log("MATCHES")
 
-        data_.data.forEach(post => {
+        data_.data.forEach(match => {
             //post.img = {
             //    type: 'image',
             //    src: post.image
             //}
+
+            match.host = getTeamById(match.host) ? getTeamById(match.host).name : '';
+            match.teamA = getTeamById(match.team1) ? getTeamById(match.team1).name : '';
+            match.teamB = getTeamById(match.team2) ? getTeamById(match.team2).name : '';
+
         })
 
         setData(data_);
@@ -69,7 +75,7 @@ export default function (props) {
                 <>
                 <Viewer 
                     data = {data.data.slice(startIndex, pageSize + startIndex)}
-                    hidden = {['_id', 'image']}
+                    hidden = {['_id', 'image', 'summary', 'team1', 'team2']}
                     actions = {[
                         {onClick: deletePage, value: 'Delete', className : 'btn btn-danger margin-5', break: true}
                     ]}

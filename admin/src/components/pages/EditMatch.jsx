@@ -40,7 +40,7 @@ export default function (props) {
         });
 
         if (res.status == 'success') {
-            setMessage('News added successfully')
+            setMessage('Summary added successfully')
         }
         else {
             setMessage(res.message)

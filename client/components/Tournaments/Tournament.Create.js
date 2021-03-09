@@ -60,7 +60,7 @@ const CreateTournament = (props) => {
             />
             <Input 
                 placeholder='Player Count'
-                onChangeText={(val) => setUniqueName(val)}
+                onChangeText={(val) => setPlayerCount(val)}
             />
             <Input 
                 placeholder="Registration Fees"
@@ -68,7 +68,7 @@ const CreateTournament = (props) => {
             />
             <Input 
                 placeholder="Winning Price"
-                onChangeText={(val) => setWinningFees(val)}
+                onChangeText={(val) => setWinningPrice(val)}
             />
 
             <Button
