@@ -6,7 +6,6 @@ export const api = "http://localhost:5001/"
 export default request = async (data) => {
 
     try {
-
         let headers = {};
         let params = {};
         if (data.body && data.type !== 'GET')

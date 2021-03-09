@@ -5,11 +5,6 @@ import styles from './News.Style'
 import request from '../../utils/request'
 
 const News = (props) => {
-    const mockNews = [
-        {highlight: 'News One', body: 'Body of News One', image: '', createdAt: Date.now()},
-        {highlight: 'News Two', body: 'Body of News Two', image: '', createdAt: Date.now()},
-        {highlight: 'News Three', body: 'Body of News Three', image: '', createdAt: Date.now()},
-    ];
 
     const [news, setNews] = React.useState([]);
 

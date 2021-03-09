@@ -4,8 +4,6 @@ import styles from './Error.Style'
 
 const ErrorComponent = (props) => {
 
-    console.log(">>>", props.message)
-
     if (!props.message)
         return null;
 

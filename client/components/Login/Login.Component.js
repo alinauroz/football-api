@@ -40,7 +40,6 @@ const Login = (props) => {
                 user.setData(res.data);
                 set("user", res.data);
                 set("token", res.token);
-                console.log(res.token, res.data)
                 props.reload();
             }
             else {

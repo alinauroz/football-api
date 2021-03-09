@@ -70,7 +70,7 @@ const Matches = (props) => {
                 break;
             }
         }
-        setMatches([ ... matches]);
+        setMatches([... matches]);
         filterMatches(matches);
     }
 

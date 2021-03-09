@@ -7,9 +7,6 @@ import moment from 'moment'
 
 const PastMatch = (props) => {
 
-    console.log("PROPS");
-    console.log(Object.keys(props));
-
     return (
         <Card>
             <View style={styles.matchTeamsContainer}>
