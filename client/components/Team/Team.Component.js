@@ -34,6 +34,18 @@ const Teams = () => {
         })
     }
 
+    const onMemberRequestAccepted = () => {
+        Toast.show({
+            text1: 'Join Request Sent'
+        })
+    }
+
+    const onMatchRequestAccepted = () => {
+        Toast.show({
+            text1: 'Match Request Accepted'
+        })
+    }
+
     const setTeamsToView = (teams, index=selectedIndex, dontSet) => {
         let _teams = teams.filter(team => {
             if (index === 0) {
@@ -148,6 +160,7 @@ const Teams = () => {
                                         date={req.date}
                                         message={req.message}
                                         request={req}
+                                        onRequestAccepted={onMatchRequestAccepted}
                                         
                                     />
                                 );

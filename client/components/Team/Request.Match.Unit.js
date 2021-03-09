@@ -21,12 +21,18 @@ const Request = (props) => {
                     requestId,
                 }
             });
+            setLoading(false);
+            setAccepted(true);
+            props.onRequestAccepted();
         }
         catch (err) {
             setLoading(false);
             console.log(err);
         }
     }
+
+    if (accepted)
+        return null;
 
     return (
         <Card>

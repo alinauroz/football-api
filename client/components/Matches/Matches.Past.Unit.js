@@ -3,6 +3,7 @@ import {Card} from 'react-native-elements';
 import {Image, Text, View} from 'react-native';
 import styles, { halfWidth } from './Matches.Style';
 import TeamLogo from '../../res/team-logo.png';
+import moment from 'moment'
 
 const PastMatch = (props) => {
 
@@ -18,8 +19,8 @@ const PastMatch = (props) => {
                         resizeMode: 'contain'
                     }}
                 />
-                <Text style={styles.teamName}>Team A</Text>
-                <Text style={styles.teamGoals}>3</Text>
+                <Text style={styles.teamName}>{props.teamA ? props.teamA.name : ''}</Text>
+                <Text style={styles.teamGoals}>{props.goals ? props.goals.teamAGoals : '-'}</Text>
             </View>
             <Text
                 style={styles.vsContainer}
@@ -33,16 +34,28 @@ const PastMatch = (props) => {
                         resizeMode: 'contain'
                     }}
                 />
-                <Text style={styles.teamName}>Team B</Text>
-                <Text style={styles.teamGoals}>2</Text>
+                <Text style={styles.teamName}>{props.teamB ? props.teamB.name : ''}</Text>
+                <Text style={styles.teamGoals}>{props.goals ? props.goals.teamBGoals : '-'}</Text>
             </View>
             </View>
             <Card.Divider/>
-            <Text style={styles.matchResult}>Team A won</Text>
+            <Text style={styles.matchResult}>{
+                (() => {
+                    if (props.goals.teamAGoals > props.goals.teamBGoals) {
+                        return props.teamA.name + ' won';
+                    }
+                    else if (props.goals.teamAGoals < props.goals.teamBGoals) {
+                        return props.teamB.name + ' won';
+                    }
+                    else {
+                        return 'The match was drawn'
+                    }
+                })()
+            }</Text>
             <Card.Divider/>
             <View style={styles.matchTeamsContainer}>
-                <Text style={styles.matchLocation}>Location, City</Text>
-                <Text style={styles.matchDate}>Feb 20</Text>
+                <Text style={styles.matchLocation}>{props.location}</Text>
+                <Text style={styles.matchDate}>{moment( new Date(props.date)).format('MMM DD')}</Text>
             </View>
         </Card>
     )

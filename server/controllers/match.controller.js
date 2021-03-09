@@ -32,7 +32,6 @@ exports.addSummary = catchAsync(async (req, res, next) => {
         await Match.updateOne({
             _id: id
         }, {$push: { summary: {
-                matchId: id,
                 player,
                 team,
                 action

@@ -20,6 +20,7 @@ const matchSchema = new Schema({
     },
     time: {
         type: Number,
+        default: 0,
         required: [true, 'Time of match is required']
     },
     isLive: {

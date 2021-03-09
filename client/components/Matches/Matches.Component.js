@@ -29,7 +29,6 @@ const Matches = (props) => {
         else if (selectedIndex === 2) {
             __matches = _matches.filter(match => (match.time < now) && !match.isLive)
         }
-        console.log(__matches.length)
         setMatchesToView(__matches);
     }
 
@@ -48,7 +47,6 @@ const Matches = (props) => {
     }
 
     const handleUpdateLiveEvent = (matchId, status) => {
-        console.log(">LENGTH", matches.length)
 
             for (let i = 0; i < matches.length; i++) {
                 if (matches[i]._id == matchId) {
@@ -71,7 +69,10 @@ const Matches = (props) => {
                 })
             }
             handleUpdateLiveEvent(data.matchId, data.status)
-        })
+        });
+        socket.on('goal', function (data) {
+            
+        });
     }, [matches]);
 
     React.useEffect(() => {
@@ -107,9 +108,9 @@ const Matches = (props) => {
                             return matchesToView.map((match) => {
                                 return (
                                     <UpcomingMatch
-                                        goals={countGoals(match.summary)}
+                                        goals={countGoals(match.summary, match.team1, match.team2)}
                                         teamA={getTeamById(match.team1)}
-                                        teamb={getTeamById(match.team2)}
+                                        teamB={getTeamById(match.team2)}
                                         summary={match.summary}
                                         key={match._id}
                                     />
@@ -118,12 +119,15 @@ const Matches = (props) => {
                         } 
                         else if (selectedIndex === 1) {
                             return matchesToView.map((match) => {
+                                console.log(match.time)
                                 return (
                                     <LiveMatch
-                                        goals={countGoals(match.summary)}
+                                        goals={countGoals(match.summary, match.team1, match.team2)}
                                         teamA={getTeamById(match.team1)}
-                                        teamb={getTeamById(match.team2)}
+                                        teamB={getTeamById(match.team2)}
                                         summary={match.summary}
+                                        location={match.venue}
+                                        date={match.time}
                                         key={match._id}
                                     />
                                 )
@@ -133,11 +137,13 @@ const Matches = (props) => {
                             return matchesToView.map((match) => {
                                 return (
                                     <PastMatch
-                                        goals={countGoals(match.summary)}
-                                        teamA={getTeamById(match.team1)}
-                                        teamb={getTeamById(match.team2)}
-                                        summary={match.summary}
-                                        key={match._id}
+                                    goals={countGoals(match.summary, match.team1, match.team2)}
+                                    teamA={getTeamById(match.team1) || {}}
+                                    teamB={getTeamById(match.team2) || {}}
+                                    summary={match.summary}
+                                    location={match.venue}
+                                    date={match.time}
+                                    key={match._id}
                                     />
                                 )
                             })

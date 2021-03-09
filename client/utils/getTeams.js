@@ -3,9 +3,10 @@ import {find} from 'lodash'
 let teams = [];
 
 (async () => {
-    let res = await request('teams');
-    if (res.status === 'success')
+    let res = await request({ route: 'teams'});
+    if (res.status === 'success') {
         teams = res.data;
+    }
 })();
 
 export default getTeams = (query) => {
@@ -13,5 +14,6 @@ export default getTeams = (query) => {
 }
 
 export const getTeamById = (id) => {
-    return find(teams, {_id: id});
+    let team = find(teams, {_id: id});
+    return team;
 }

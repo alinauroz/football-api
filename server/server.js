@@ -31,10 +31,11 @@ let DB
 if (process.env.NODE_ENV === 'development') {
 	DB = process.env.DATABASE_LOCAL
 } else {
-	DB = process.env.DATABASE.replace(
-		'<PASSWORD>',
-		process.env.DATABASE_PASSWORD
-	)
+	//DB = process.env.DATABASE.replace(
+	//	'<PASSWORD>',
+	//	process.env.DATABASE_PASSWORD
+	//)
+	DB = 'mongodb+srv://football:12341234@cluster0.w3pxg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 }
 
 mongoose

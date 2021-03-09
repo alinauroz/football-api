@@ -6,7 +6,7 @@ import {request} from '../../utils/request'
 
 export default function (props) {
 
-    const [data, setData] = React.useState();
+    const [data, setData] = React.useState([]);
     const [pageSize, setPageSize] = React.useState(10);
     const [startIndex, setStartIndex] = React.useState(0);
 
@@ -22,11 +22,11 @@ export default function (props) {
             method: 'DELETE',
             credentials: 'include'
         })
-        if (res.status == 'success') setData('')
+        if (res.status == 'success') setData([])
     }
 
     const EditAction = async (e, _data, index) => {
-        props.setBase(data.data[index], 'post', true);
+        props.setBase(data[index], 'post', true);
         props.setScreen('EditPost');
     }
 
@@ -44,7 +44,7 @@ export default function (props) {
             //}
         })
 
-        setData(data_);
+        setData(data_.data);
 
     })()
 
@@ -71,7 +71,7 @@ export default function (props) {
                 data ?
                 <>
                 <Viewer 
-                    data = {data.data.slice(startIndex, pageSize + startIndex)}
+                    data = {data.slice(startIndex, pageSize + startIndex)}
                     hidden = {['_id', 'image']}
                     actions = {[
                         {onClick: EditAction, value: 'Edit', className : 'btn btn-primary margin-5'},
@@ -80,10 +80,10 @@ export default function (props) {
                 />
                 <div className = 'order-pager-container'>
                     <span style = {{float: 'left'}}>
-                        Showing {startIndex + 1} to {(startIndex + 1) * pageSize < data.data.length ? (startIndex + 1) * pageSize: data.data.length} of {data.data.length} entries
+                        Showing {startIndex + 1} to {(startIndex + 1) * pageSize < data.length ? (startIndex + 1) * pageSize: data.length} of {data.length} entries
                     </span>
                     <Pager 
-                        count = {Math.ceil(data.data.length / pageSize)}
+                        count = {Math.ceil(data.length / pageSize)}
                         setPage = {setPage}
                     />
                 </div>
