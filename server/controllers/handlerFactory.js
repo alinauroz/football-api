@@ -63,7 +63,7 @@ exports.getOne = (Model, populateOpts) =>
 
 exports.getAll = Model =>
 	catchAsync(async (req, res, next) => {
-		let features = new APIFeatures(Model.find(req.filter), req.query)
+		let features = new APIFeatures(Model.find({ ... req.filter, ... req.query}), req.query)
 			.sort()
 			.limitFields()
 			.paginate()

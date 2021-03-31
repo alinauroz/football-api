@@ -38,9 +38,13 @@ exports.adminLogin = catchAsync(async (req, res, next) => {
 	}
 	const admin = await Admin.findOne({ username }).select('+password')
 
+	if (!admin)
+		return next(new AppError('Admin not found', 401))
+
 	if (!admin || !(await admin.correctPassword(password, admin.password))) {
 		return next(new AppError('Incorrect username or password', 401))
 	}
+
 	createSendToken(admin, 200, req, res)
 })
 

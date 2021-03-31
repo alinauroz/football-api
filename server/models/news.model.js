@@ -13,6 +13,10 @@ const newsSchema = new Schema({
     image: {
         type: String,
         default: ''
+    },
+    url: {
+        type: String,
+        default: ''
     }
 }, {
     timestamps: true
