@@ -1,4 +1,7 @@
 const puppeteer = require('puppeteer');
+const removeExisting = require('./removeExisting');
+const saveToLogs = require('./saveToLogs');
+const postNews = require('./postNews');
 
 (async () => {
     let url = "https://www.footballpakistan.com/";

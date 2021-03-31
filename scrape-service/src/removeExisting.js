@@ -3,7 +3,7 @@ const util = require('util');
 
 const readFile = util.promisify(fs.readFile);
 
-const removeExisting = async (urls) => {
+const removeExisting = async (urls, images, highlights, summary) => {
     try {
         let existingUrls = [];
         
@@ -17,7 +17,10 @@ const removeExisting = async (urls) => {
                 }
             });
             existingIndex.reverse().forEach((urlIndex) => {
-                urls.splice(urlIndex, 1)
+                urls.splice(urlIndex, 1);
+                images.splice(urlIndex, 1);
+                highlights.splice(urlIndex, 1);
+                summary.splice(urlIndex, 1);
             });
         }
     }
