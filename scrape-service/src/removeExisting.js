@@ -7,7 +7,7 @@ const removeExisting = async (urls) => {
     try {
         let existingUrls = [];
         
-        let data = await readFile('./src/urls.log', 'utf-8')
+        let data = await readFile('./urls.log', 'utf-8')
         existingUrls = data.split("\n");
         if (existingUrls) {
             let existingIndex = [];
@@ -26,8 +26,5 @@ const removeExisting = async (urls) => {
     }
     
 }
-
-let a = ["http://google.com/", "abc.cp"]
-removeExisting(a).then(() => console.log(a))
 
 module.exports = removeExisting;
