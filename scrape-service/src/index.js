@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 const removeExisting = require('./removeExisting');
-const saveToLogs = require('./saveToLogs');
+const saveToLogs = require('./saveToLog');
 const postNews = require('./postNews');
 
 (async () => {
@@ -8,7 +8,7 @@ const postNews = require('./postNews');
     let browser = await puppeteer.launch();
     let page = await browser.newPage();
     await page.goto(url, { waitUntil: 'networkidle2' });
-    console.log("loaded ..");
+
     let data = await page.evaluate(() => {
         let images = document.querySelectorAll('.wp-post-image');
         let headings = document.querySelectorAll(".cmsmasters_post_title > a");
@@ -31,4 +31,11 @@ const postNews = require('./postNews');
         }
 
     });
+    
+    await removeExisting(data.urls, data.imagesLinks, data.headingsBody, data.summaryContent);
+    for (let i = 0; i < data.urls.length; i++) {
+        await postNews(data.imagesLinks[i], data.headingsBody[i], data.summaryContent[i], data.urls[i]);
+        saveToLogs(data.urls[i]);
+    }
+    console.log(":::::::DONE::::::::")
 })();

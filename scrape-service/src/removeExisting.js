@@ -25,7 +25,7 @@ const removeExisting = async (urls, images, highlights, summary) => {
         }
     }
     catch (err) {
-        console.log('URL log file not found');
+        console.log(err);
     }
     
 }
