@@ -63,6 +63,14 @@ exports.getOne = (Model, populateOpts) =>
 
 exports.getAll = Model =>
 	catchAsync(async (req, res, next) => {
+
+		for (let x in req.query) {
+			try {
+				req.query[x] = JSON.parse(req.query[x]);
+			}
+			catch (err) {console.log(err)}
+		}
+
 		let features = new APIFeatures(Model.find({ ... req.filter, ... req.query}), req.query)
 			.sort()
 			.limitFields()
