@@ -37,9 +37,9 @@ class PredictSpam {
         }
     }
 
-    getCount (word, negative=false, defaultValue = 1) {
+    getCount (word, negative=false, offset = 1) {
         let bag = negative ? this.negativeBag: this.positiveBag;
-        return bag[word] || defaultValue;
+        return (bag[word] || 0) + offset;
     }
 
     get count() {
@@ -51,16 +51,22 @@ class PredictSpam {
         }
     }
 
-    predict () {
+    predict (input) {
+        let pPos = this.nPositiveSamples / (this.nNegativeSamples + this.nPositiveSamples);
+        let pNeg = this.nNegativeSamples / (this.nNegativeSamples + this.nPositiveSamples);
+
+        input.split(' ')
+            .map(token => token.toLowerCase())
+            .forEach(word => {
+                let nPos = this.getCount( word, false );
+                let nNeg = this.getCount( word, true );
+
+                pNeg *= nNeg / (nPos + nNeg);
+                pPos *= nPos / (nPos + nNeg);
+
+            });
+
+        return pPos > pNeg;
 
     }
 };
-
-const samples = [
-    {content: "Win win win", isSpam: true},
-    {content: "Play with us", isSpam: false},
-    {content: "Get a chance to win 100", isSpam: true}
-]
-
-let predictor = new PredictSpam(samples);
-console.log(predictor.count)
