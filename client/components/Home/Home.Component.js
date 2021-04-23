@@ -9,6 +9,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { DrawerNavigator } from 'react-navigation';
 
 import News from '../News/News.Component'
 import Me from '../Me/Me.Component'
