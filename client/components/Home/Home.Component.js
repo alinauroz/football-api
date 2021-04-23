@@ -2,6 +2,7 @@ import React from 'react'
 import {
     Dimensions,
     Text,
+    AppRegistry,
     View
 } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
