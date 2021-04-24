@@ -21,6 +21,7 @@ import Teams from '../Team/Team.Component'
 import Dashbaord from '../Dashboard/Dashboard.Component'
 import Payment from '../Payment/Payment.Component'
 import Exercise from '../Exercise/Exercise.Component'
+import Ground from '../Ground/Ground.Component'
 
 Icon.loadFont();
 
@@ -62,7 +63,7 @@ function MyTabs(props) {
                     }
                 })}
             >
-                <Tab.Screen name="Home" component={Exercise}/>
+                <Tab.Screen name="Home" component={Ground}/>
                 <Tab.Screen name="Pay" component={Payment}/>
                 <Tab.Screen name="Matches" component={Matches} />
                 <Tab.Screen name="Tournament" component={Tournament} />
