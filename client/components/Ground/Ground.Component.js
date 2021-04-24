@@ -14,27 +14,29 @@ const Ground = function () {
         request({
             route: 'ground'
         }).then(res => {
-            console.log("Grounds");
-            console.log(res.data)
             setData(res.data)
         })
     }, []);
 
-    if (detailId) {
-
+    if (detailId !== null) {
+        return <Text>Detail</Text>
     }
 
     return (
         <ScrollView>
+            <Text style={styles.title}>Grounds {detailId}</Text>
             {
-                data.map(ground => (
+                data.map((ground, index) => (
                     <GroundUnit 
-                        key={ground.id}
+                        key={ground._id}
+                        id={ground._id}
+                        index={index}
                         name={ground.name}
                         availableHours={ground.availableHours}
                         location={ground.location}
                         city={ground.city}
                         rate={ground.rate}
+                        selectGround={setDetailId}
                     />
                 ))
             }
