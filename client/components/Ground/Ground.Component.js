@@ -6,6 +6,7 @@ import styles from './Ground.Style';
 import { ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Header from '../Basic/Header/Header.Component';
+import Booking from './Ground.Booking';
 
 Icon.loadFont();
 
@@ -29,6 +30,9 @@ const Ground = function () {
                     onIconClick={() => setDetailId(null)}
                     iconName="chevron-left"
                     title="Grounds"
+                />
+                <Booking 
+                    availableHours={[]}
                 />
             </ScrollView>
         )
