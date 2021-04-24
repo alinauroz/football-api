@@ -6,11 +6,11 @@ import {
     View
 } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { DrawerNavigator } from 'react-navigation';
 
 import News from '../News/News.Component'
 import Me from '../Me/Me.Component'
@@ -19,10 +19,12 @@ import Tournament from '../Tournaments/Tournament.Component'
 import Teams from '../Team/Team.Component'
 import Dashbaord from '../Dashboard/Dashboard.Component'
 import Payment from '../Payment/Payment.Component'
+import Exercise from '../Exercise/Exercise.Component'
 
 Icon.loadFont();
 
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 function MyTabs(props) {
     const insets = useSafeAreaInsets();
@@ -59,7 +61,7 @@ function MyTabs(props) {
                     }
                 })}
             >
-                <Tab.Screen name="Home" component={Dashbaord}/>
+                <Tab.Screen name="Home" component={Exercise}/>
                 <Tab.Screen name="Pay" component={Payment}/>
                 <Tab.Screen name="Matches" component={Matches} />
                 <Tab.Screen name="Tournament" component={Tournament} />
