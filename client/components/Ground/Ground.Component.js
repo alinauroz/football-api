@@ -4,11 +4,15 @@ import request from '../../utils/request';
 import GroundUnit from './Ground.Unit';
 import styles from './Ground.Style';
 import { ScrollView } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Header from '../Basic/Header/Header.Component';
+
+Icon.loadFont();
 
 const Ground = function () {
 
     const [data, setData] = React.useState([]);
-    const [detailId, setDetailId] = React.useState(null);
+    const [detailId, setDetailId] = React.useState(0);
 
     React.useEffect(() => {
         request({
@@ -19,7 +23,15 @@ const Ground = function () {
     }, []);
 
     if (detailId !== null) {
-        return <Text>Detail</Text>
+        return (
+            <ScrollView>
+                <Header
+                    onIconClick={() => setDetailId(null)}
+                    iconName="chevron-left"
+                    title="Grounds"
+                />
+            </ScrollView>
+        )
     }
 
     return (
