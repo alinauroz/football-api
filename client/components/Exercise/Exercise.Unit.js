@@ -2,8 +2,9 @@ import React from 'react';
 import { Text } from 'react-native';
 import { Card } from 'react-native-elements';
 import YoutubePlayer from 'react-native-youtube-iframe';
+import styles from './Exercise.Style'
 
-const ExerciseUnit = ({ videoId, title, content }) => {
+const ExerciseUnit = ({ videoId, title, description }) => {
     return (
         <Card>
             <YoutubePlayer
@@ -11,11 +12,13 @@ const ExerciseUnit = ({ videoId, title, content }) => {
               play={false}
               videoId={videoId}
             />
-            <Text>
+            <Text
+                style={styles.title}
+            >
                 {title}
             </Text>
             <Text>
-                {content}
+                {description}
             </Text>
         </Card>
     )
