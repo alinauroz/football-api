@@ -37,7 +37,9 @@ const Booking = (props) => {
         <View style={styles.bookingContainer}>
             <View
                 style={{
-                    zIndex: 999
+                    width: '100%',
+                    zIndex: 999,
+                    flexDirection: 'column'
                 }}
             >
                 <TouchableOpacity
@@ -49,17 +51,21 @@ const Booking = (props) => {
                         justifyContent: 'center',
                         marginBottom: 20,
                     }}
-                    onPress={() => setCalenderDisplay('block')}
+                    onPress={() =>  calendarDisplay === 'flex' ? setCalenderDisplay('none') : setCalenderDisplay('flex')}
                 >
-                    <Text style={{backgroundColor: 'white', borderRadius: 5, overflow: 'hidden', paddingTop: 8, paddingLeft: 8, paddingLeft: 20, paddingRight: 20, fontSize: 28}}>{date ? date : 'Select Date'} {calendarDisplay}</Text>
+                    <Text style={{backgroundColor: 'white', borderRadius: 5, overflow: 'hidden', paddingTop: 8, paddingLeft: 8, paddingLeft: 20, paddingRight: 20, fontSize: 28}}>{ calendarDisplay === 'flex' ? 'Cancel' : date ? date : 'Select Date'}</Text>
                 </TouchableOpacity>
                 <View
                     style={{
-                        display: 'flex',
-                        justifyContent: 'center'
+                        display: calendarDisplay,
+                        justifyContent: 'center',
+                        backgroundColor: 'white'
                     }}
                 >
                     <Calendar 
+                        onDayPress={(day) => {
+                            console.log(day)
+                        }}
                         style={{
                             position: 'absolute',
                             zIndex: 999,
