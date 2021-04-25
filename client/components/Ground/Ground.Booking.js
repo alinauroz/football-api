@@ -1,15 +1,31 @@
 import React, {useState} from 'react';
-import { View, TouchableOpacity, ScrollView, Text } from 'react-native'
+import { View, TouchableOpacity, ScrollView, Text, ActivityIndicator } from 'react-native'
 import styles from './Ground.Style';
 import { Calendar } from 'react-native-calendars';
+import request from '../../utils/request';
 
 const Booking = (props) => {
 
-    const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const [hours, setHours] = useState([]);
     const [date, setDate] = useState('');
     const [calendarDisplay, setCalenderDisplay] = useState('none');
+    const [freeSlots, setFreeSlots] = useState([]);
+    const [selected, _setSelected] = useState([]);
+
+    const setSelected = (index) => {
+
+        if (selected.indexOf(index) > -1) {
+            console.log("Removing")
+            selected.splice(selected.indexOf(index), 1);
+        }
+        else {
+            console.log("Adding")
+            selected.push(index);
+        }
+        console.log(selected)
+        _setSelected([ ...selected]);
+    }
 
     const stylesRegister = {
         '-1':  {},
@@ -31,9 +47,30 @@ const Booking = (props) => {
             }
         }
         setHours(hours);
-    }, [])
+    }, []);
+
+    React.useEffect(() => {
+        try {
+            if (!date)
+                return;
+            setLoading(true);
+            request({
+                route: `ground/slots/${props.id}/${date}`
+            }).then(res => {
+                console.log("Available Slots", res);
+                if (!res.error)
+                    setFreeSlots(res);
+                setLoading(false);
+            })
+        }
+        catch (err) {
+            console.log("ERR", err);
+            setLoading(false);
+        }
+    }, [date])
 
     return (
+        
         <View style={styles.bookingContainer}>
             <View
                 style={{
@@ -64,7 +101,8 @@ const Booking = (props) => {
                 >
                     <Calendar 
                         onDayPress={(day) => {
-                            console.log(day)
+                            setDate(day.dateString);
+                            setCalenderDisplay('none');
                         }}
                         style={{
                             position: 'absolute',
@@ -81,15 +119,32 @@ const Booking = (props) => {
             </View>
             {
 
-                hours.map(hour => {
+                hours.map((hour, index) => {
+
+                    let style = styles.hourButton;
+                    
+                    if (selected.indexOf(index) > -1) {
+                        console.log("In selected")
+                        style = { ...style, ...styles.selectedHour }
+                    }
+                    else if (freeSlots.indexOf(index) > -1) {
+                        style = { ...style, ...styles.availableHour }
+                    }
+                    else if (props.availableHours?.indexOf(index) > -1) {
+                        style = { ...style, ...styles.buttonBooked }
+                    }
+                    else {
+                        style = { ...style, ...styles.notAvailable }
+                    }
+
                     return (
                         <TouchableOpacity
-                            onPress={() => {}}
-                            key={hour.index}
-                            disabled={hour.status !== 1}
+                            onPress={() => setSelected(index)}
+                            key={index}
+                            disabled={freeSlots.indexOf(index) === -1}
                         >
-                            <View style={{ ...styles.hourButton, ...stylesRegister[String(hour.status)]}}>
-                                <Text>{hour.status ? hour.label : '-'}</Text>
+                            <View style={style}>
+                                <Text>{!loading ? hour.label : <ActivityIndicator/> }</Text>
                                 <Text>{hour.ampm}</Text>
                             </View>
                         </TouchableOpacity>

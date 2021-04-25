@@ -31,8 +31,9 @@ const Ground = function () {
                     iconName="chevron-left"
                     title="Grounds"
                 />
-                <Booking 
-                    availableHours={[1, 2, 3]}
+                <Booking
+                    id={data[detailId]?._id}
+                    availableHours={[9, 10, 11, 12, 13, 14, 15, 16, 17, 18]}
                 />
             </ScrollView>
         )

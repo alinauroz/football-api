@@ -36,5 +36,8 @@ export default StyleSheet.create({
     buttonBooked: {
         opacity: 0.4,
         borderWidth: 5,
+    },
+    selectedHour: {
+        borderWidth: 5,
     }
 });
