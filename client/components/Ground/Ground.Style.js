@@ -29,5 +29,12 @@ export default StyleSheet.create({
         alignItems: 'center',
         borderWidth: 1,
         marginTop: 10,
+    },
+    notAvailable: {
+        opacity: 0.4,
+    },
+    buttonBooked: {
+        opacity: 0.4,
+        borderWidth: 5,
     }
 });

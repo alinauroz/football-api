@@ -32,7 +32,7 @@ const Ground = function () {
                     title="Grounds"
                 />
                 <Booking 
-                    availableHours={[]}
+                    availableHours={[1, 2, 3]}
                 />
             </ScrollView>
         )
