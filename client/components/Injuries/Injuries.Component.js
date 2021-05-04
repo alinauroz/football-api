@@ -1,9 +1,11 @@
 import React from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, Text, StyleSheet } from 'react-native';
+import { Card } from 'react-native-elements';
 import Unit from './Injuries.Unit';
 import styles from './Injuries.Style'
 import request from '../../utils/request';
 import Header from '../Basic/Header/Header.Component';
+import HTMLView from 'react-native-htmlview';
 
 const Injuries = () => {
 
@@ -19,6 +21,7 @@ const Injuries = () => {
     }, []);
 
     if (detailId !== null) {
+        const injury = data[detailId];
         return (
             <ScrollView>
                 <Header
@@ -26,6 +29,18 @@ const Injuries = () => {
                     iconName="chevron-left"
                     title="Injuries"
                 />
+                <Unit 
+                    title={injury.title}
+                    description={injury.description}
+                    videoId={injury.videoId}
+                />
+                <Card>
+                <HTMLView
+                  value={`
+                    <h1>Injury</h1><h3>This is some description on Injury</h3><ul> <li>Point 1</li><li>Point 2</li><li>Point 3</li></ul>
+                  `}
+                />
+                </Card>
             </ScrollView>
         )
     }
