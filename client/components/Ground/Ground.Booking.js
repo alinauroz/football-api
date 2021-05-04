@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import { View, TouchableOpacity, ScrollView, Text, ActivityIndicator } from 'react-native'
+import { View, TouchableOpacity, ScrollView, Text, ActivityIndicator } from 'react-native';
+import { Button } from 'react-native-elements';
 import styles from './Ground.Style';
 import { Calendar } from 'react-native-calendars';
 import request from '../../utils/request';
@@ -12,6 +13,24 @@ const Booking = (props) => {
     const [calendarDisplay, setCalenderDisplay] = useState('none');
     const [freeSlots, setFreeSlots] = useState([]);
     const [selected, _setSelected] = useState([]);
+
+    const book = async () => {
+        try {
+            let res = await request({
+                route: 'ground/book/' + props.groudId,
+                type: 'PUT',
+                credential: 'include',
+                data: {
+                    hours: selected,
+                    data
+                }
+            })
+            console.log("RES", res);
+        }
+        catch (err) {
+            setLoading(false);
+        }
+    }
 
     const setSelected = (index) => {
 
@@ -151,6 +170,15 @@ const Booking = (props) => {
                     )
                 })
             }
+            <Button 
+                title={`Book - PKR ${selected.length * props.rate}`}
+                disabled={loading || selected.length === 0}
+                style={{
+                    marginTop: 20,
+                    fontSize: 16,
+                    fontWeight: '600'
+                }}
+            />
         </View>
     );
 

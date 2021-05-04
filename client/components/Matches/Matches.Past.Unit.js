@@ -4,10 +4,14 @@ import {Image, Text, View} from 'react-native';
 import styles, { halfWidth } from './Matches.Style';
 import TeamLogo from '../../res/team-logo.png';
 import moment from 'moment'
+import { TouchableOpacity } from 'react-native';
 
 const PastMatch = (props) => {
 
     return (
+        <TouchableOpacity
+            onPress={props.onClick}
+        >
         <Card>
             <View style={styles.matchTeamsContainer}>
             <View style={styles.matchTeamContainer}>
@@ -58,6 +62,7 @@ const PastMatch = (props) => {
                 <Text style={styles.matchDate}>{moment( new Date(props.date)).format('MMM DD')}</Text>
             </View>
         </Card>
+        </TouchableOpacity>
     )
 
 }

@@ -33,6 +33,7 @@ const Ground = function () {
                 />
                 <Booking
                     id={data[detailId]?._id}
+                    rate={200}
                     availableHours={[9, 10, 11, 12, 13, 14, 15, 16, 17, 18]}
                 />
             </ScrollView>

@@ -9,6 +9,8 @@ import socket from '../../utils/socket.io';
 import Toast from 'react-native-toast-message';
 import { countGoals } from '../../utils/summaryParser';
 import { getTeamById } from '../../utils/getTeams';
+import MatchDetail from './Match.Detail';
+import Header from '../Basic/Header/Header.Component';
 
 const Matches = (props) => {
 
@@ -16,6 +18,7 @@ const Matches = (props) => {
     const [matchesToView, setMatchesToView] = React.useState([]);
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [sendMatchRequestModal, setSendMatchRequestModal] = useState(false);
+    const [detailId, setDetailId] = useState(null);
 
     filterMatches = (_matches=matches, index=selectedIndex) => {
         let __matches;
@@ -95,7 +98,47 @@ const Matches = (props) => {
 
     React.useEffect(() => {
         getMatches();
-    }, [])
+    }, []);
+
+    if (detailId !== null && matchesToView[detailId]) {
+        const match = matchesToView[detailId];
+        return (
+            <ScrollView>
+                <Header
+                    onIconClick={() => setDetailId(null)}
+                    iconName="chevron-left"
+                    title={`Match: ${getTeamById(matches[detailId].team1).name} vs ${getTeamById(matches[detailId].team2).name}`}
+                />
+                {
+                    selectedIndex === 1 ?
+                    <LiveMatch
+                        goals={countGoals(match.summary, match.team1, match.team2)}
+                        teamA={getTeamById(match.team1)}
+                        teamB={getTeamById(match.team2)}
+                        summary={match.summary}
+                        location={match.venue}
+                        date={match.time}
+                        key={match._id}
+                        onClick={() => {}}
+                    /> :
+                    <PastMatch
+                        goals={countGoals(match.summary, match.team1, match.team2)}
+                        teamA={getTeamById(match.team1) || {}}
+                        teamB={getTeamById(match.team2) || {}}
+                        summary={match.summary}
+                        location={match.venue}
+                        date={match.time}
+                        key={match._id}
+                        onClick={() => {}}
+                    />
+
+                }
+                <MatchDetail
+                    match={matchesToView[detailId]}
+                />
+            </ScrollView>
+        )
+    }
 
     return (
         <View
@@ -119,7 +162,7 @@ const Matches = (props) => {
                 {
                     (() => {
                         if (selectedIndex === 0) {
-                            return matchesToView.map((match) => {
+                            return matchesToView.map((match, index) => {
                                 return (
                                     <UpcomingMatch
                                         goals={countGoals(match.summary, match.team1, match.team2)}
@@ -127,13 +170,13 @@ const Matches = (props) => {
                                         teamB={getTeamById(match.team2)}
                                         summary={match.summary}
                                         key={match._id}
+                                        onClick={() => setDetailId(index)}
                                     />
                                 )
                             })
                         } 
                         else if (selectedIndex === 1) {
-                            return matchesToView.map((match) => {
-                                console.log(match.time)
+                            return matchesToView.map((match, index) => {
                                 return (
                                     <LiveMatch
                                         goals={countGoals(match.summary, match.team1, match.team2)}
@@ -143,12 +186,13 @@ const Matches = (props) => {
                                         location={match.venue}
                                         date={match.time}
                                         key={match._id}
+                                        onClick={() => setDetailId(index)}
                                     />
                                 )
                             })
                         } 
                         else if (selectedIndex === 2) {
-                            return matchesToView.map((match) => {
+                            return matchesToView.map((match, index) => {
                                 return (
                                     <PastMatch
                                     goals={countGoals(match.summary, match.team1, match.team2)}
@@ -158,6 +202,7 @@ const Matches = (props) => {
                                     location={match.venue}
                                     date={match.time}
                                     key={match._id}
+                                    onClick={() => setDetailId(index)}
                                     />
                                 )
                             })
