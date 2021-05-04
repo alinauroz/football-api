@@ -1,18 +1,16 @@
 import React from 'react';
+import { TouchableOpacity } from 'react-native';
 import { Text } from 'react-native';
 import { Card } from 'react-native-elements';
 import YoutubePlayer from 'react-native-youtube-iframe';
 import styles from './Injuries.Style'
 
-const InjuryUnit = ({ videoId, title, description }) => {
-
-    const [detailId, setDetailId] = React.useState(null);
-
-    if (detailId !== null) {
-        
-    }
+const InjuryUnit = ({ videoId, title, description, onClick }) => {
 
     return (
+        <TouchableOpacity
+            onPress={onClick ? () => onClick() : () => {}}
+        >
         <Card>
             <YoutubePlayer
               height={190}
@@ -28,6 +26,7 @@ const InjuryUnit = ({ videoId, title, description }) => {
                 {description}
             </Text>
         </Card>
+        </TouchableOpacity>
     )
 }
 
