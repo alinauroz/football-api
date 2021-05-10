@@ -6,7 +6,7 @@ const Input = (props) => {
 
     return (
         <TextInput 
-            style={styles.input}
+            style={{ ...styles.input, ...(props.styles || {})}}
             autoCapitalize="none"
             {... props}
         />
