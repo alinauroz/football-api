@@ -10,6 +10,8 @@ import MatchRequestUnit from './Request.Match.Unit';
 import MemberRequestUnit from './Request.Member.Unit';
 import request from '../../utils/request';
 import Toast from 'react-native-toast-message';
+import Detail from './Team.Detail';
+import Header from '../Basic/Header/Header.Component';
 
 import MatchRequestForm from '../Matches/Match.Request';
 
@@ -20,6 +22,7 @@ const Teams = () => {
     const [teamsToView, _setTeamsToView] = React.useState([]);
     const [toRequestTeam, setToRequestTeamId] = React.useState(null);
     const [users, setUsers] = React.useState([]);
+    const [detailId, setDetailId] = React.useState(null);
 
     const onMatchRequestSent = () => {
         setToRequestTeamId(null);
@@ -109,6 +112,21 @@ const Teams = () => {
         }
     }
 
+    if (detailId !== null) {
+        return (
+            <ScrollView>
+                <Header 
+                    title={`Team: ${teams[detailId]?.name}`}
+                    onIconClick={() => setDetailId(null)}
+                    iconName="chevron-left"
+                />
+                <Detail 
+                    team={teams[detailId]}
+                />
+            </ScrollView>
+        );
+    }
+
     return (
         <>
         <View
@@ -130,7 +148,7 @@ const Teams = () => {
             </Overlay>
             <ScrollView>
                 {
-                    teamsToView.map(team => {
+                    teamsToView.map((team, index) => {
                         if (selectedIndex !== 3) {
                             return (
                                 <Team
@@ -141,6 +159,7 @@ const Teams = () => {
                                     requestSent={team.membersRequest.indexOf(user._id) > -1}
                                     requestMatch={(id) => setToRequestTeamId(id)}
                                     onMemberRequestSent={onMemberRequestSent}
+                                    onClick={() => setDetailId(index)}
                                 />
                             )
                         }

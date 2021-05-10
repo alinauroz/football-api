@@ -6,10 +6,14 @@ import styles from './Team.Style'
 
 import MemberRequestButton from './Button.Request.Member'
 import MatchRequestButton from './Button.Request.Match'
+import { TouchableOpacity } from 'react-native';
 
 const Team = (props) => {
 
     return (
+        <TouchableOpacity
+            onPress={props.onClick || (() => {})}
+        >
         <Card>
             <View
                 style={{
@@ -66,6 +70,7 @@ const Team = (props) => {
             </View>
             </View>
         </Card>
+        </TouchableOpacity>
     );
 
 }
