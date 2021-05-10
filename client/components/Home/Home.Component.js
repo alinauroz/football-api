@@ -23,6 +23,7 @@ import Payment from '../Payment/Payment.Component'
 import Exercise from '../Exercise/Exercise.Component'
 import Ground from '../Ground/Ground.Component'
 import Injuries from '../Injuries/Injuries.Component'
+import ExtraMenu from '../ExtraMenu/ExtraMenu.Component'
 
 Icon.loadFont();
 
@@ -60,16 +61,18 @@ function MyTabs(props) {
                             iconName = 'user'
                         else if (route.name === 'Tournament')
                             iconName = 'trophy'
+                        else if (route.name === 'More')
+                            iconName = 'bars'
                         return <Icon name={iconName} size={size} color={color} />
                     }
                 })}
             >
                 <Tab.Screen name="Home" component={Injuries}/>
-                <Tab.Screen name="Pay" component={Payment}/>
                 <Tab.Screen name="Matches" component={Matches} />
                 <Tab.Screen name="Tournament" component={Tournament} />
                 <Tab.Screen name="Teams" component={Teams} />
                 <Tab.Screen name="Profile" component={MeWithReload} />
+                <Tab.Screen name="More" component={ExtraMenu} />
             </Tab.Navigator>
         </NavigationContainer>
     </SafeAreaProvider>
