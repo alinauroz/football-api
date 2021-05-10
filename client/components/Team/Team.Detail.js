@@ -2,6 +2,7 @@ import React from "react";
 import { ScrollView, Text, View, Dimensions, Image } from "react-native";
 import { Card } from "react-native-elements";
 import { getUserById } from "../../utils/getUsers";
+import moment from "moment";
 import styles from './Team.Style';
 
 const profilePhoto = {
@@ -9,9 +10,9 @@ const profilePhoto = {
 }
 
 export default function Details(props) {
-  console.log(props);
   return (
     <ScrollView>
+      <Text style={{marginLeft: 15, fontStyle: 'italic'}}>This team was created on {moment(new Date(props.team?.createdAt)).format("dd mm dd, yyyy")}</Text>
       {props.team?.members?.map((member) => {
         let user = getUserById(member);
         return (
