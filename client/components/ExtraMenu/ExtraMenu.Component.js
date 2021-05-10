@@ -10,6 +10,9 @@ export default function ExtraMenu () {
         {name: 'Grounds', icon: 'globe', component: null},
         {name: 'Exercies', icon: 'heartbeat', component: null},
         {name: 'Injuries', icon: 'ambulance', component: null},
+        {name: 'Edit Profile', icon: 'user', component: null},
+        {name: 'Feedback', icon: 'bullhorn', component: null},
+        {name: 'Report Bug', icon: 'bug', component: null},
         {name: 'Log Out', icon: 'sign-out', onClick: null}
     ];
 
