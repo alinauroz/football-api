@@ -43,7 +43,7 @@ const Login = (props) => {
             console.log(res);
             
             if (res.status === 'success') {
-                alert('Account created')
+                alert('Account created. Open your email and confirm')
                 props.setScreen('login');
                 setLoading(false);
             }

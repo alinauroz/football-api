@@ -25,6 +25,7 @@ import Ground from '../Ground/Ground.Component'
 import Injuries from '../Injuries/Injuries.Component'
 import ExtraMenu from '../ExtraMenu/ExtraMenu.Component'
 import Feedback from '../Feedback/Feedback.Component'
+import Tracker from '../Tracker/Tracker.Component'
 
 Icon.loadFont();
 
@@ -68,7 +69,7 @@ function MyTabs(props) {
                     }
                 })}
             >
-                <Tab.Screen name="Home" component={Feedback}/>
+                <Tab.Screen name="Home" component={Exercise}/>
                 <Tab.Screen name="Matches" component={Matches} />
                 <Tab.Screen name="Tournament" component={Tournament} />
                 <Tab.Screen name="Teams" component={Teams} />

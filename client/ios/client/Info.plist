@@ -45,5 +45,17 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+  
+  <!-- Fitness tracker -->
+  <key>NSMotionUsageDescription</key>
+  <string>Reason string goes here</string>
+
+  <!-- Health tracker -->
+  <key>NSHealthUpdateUsageDescription</key>
+  <string>Reason string goes here</string>
+  <key>NSHealthShareUsageDescription</key>
+  <string>Reason string goes here</string>
+  
+  
 </dict>
 </plist>
