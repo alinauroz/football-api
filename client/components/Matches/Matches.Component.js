@@ -11,6 +11,8 @@ import { countGoals } from '../../utils/summaryParser';
 import { getTeamById } from '../../utils/getTeams';
 import MatchDetail from './Match.Detail';
 import Header from '../Basic/Header/Header.Component';
+import { TouchableOpacity, Text } from 'react-native';
+import commonStyles from '../../common/styles';
 
 const Matches = (props) => {
 
@@ -148,6 +150,9 @@ const Matches = (props) => {
                 backgroundColor: 'white'
             }}
         >
+            <TouchableOpacity style={commonStyles.floatingButton}>
+                <Text>+</Text>
+            </TouchableOpacity>
             <View>
                 <ButtonGroup 
                     selectedIndex={selectedIndex}
