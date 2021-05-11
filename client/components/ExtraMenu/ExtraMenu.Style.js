@@ -15,7 +15,7 @@ export default StyleSheet.create({
         minHeight: '100%',
         flex: 1,
         flexDirection: 'row',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
     },
     menuItemName: {
         fontWeight: 'bold',

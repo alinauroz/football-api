@@ -5,8 +5,9 @@ import request from '../../utils/request';
 import styles from './Feedback.Style';
 import Input from '../Basic/Input/Input.component'
 import Toast from "react-native-toast-message";
+import Header from '../Basic/Header/Header.Component';
 
-export default function Feedback () {
+export default function Feedback (props) {
 
     const [message, setMessage] = React.useState('');
     const [loading, setLoading] = React.useState(false);
@@ -44,6 +45,11 @@ export default function Feedback () {
 
     return (
         <View style={styles.container}>
+            <Header 
+                onIconClick={props.back}
+                iconName="chevron-left"
+                title="Feedback"
+            />
             <Input
                 placeholder="Your feedback here"
                 value={message}
