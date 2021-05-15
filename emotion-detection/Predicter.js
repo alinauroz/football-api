@@ -70,3 +70,5 @@ class PredictEmotion {
 
     }
 };
+
+module.exports = PredictEmotion;
