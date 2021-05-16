@@ -1,12 +1,13 @@
 import React from 'react'
 import Field from '../unit/Field'
 import { request } from '../../utils/request'
-
+import CKEditor from 'react-ckeditor-component'
 
 export default function (props) {
 
     const [title, setTitle] = React.useState('')
     const [content, setContent] = React.useState('')
+    const [description, setDescription] = React.useState('')
     const [message, setMessage] = React.useState('')
     const [videoId, setVideoId] = React.useState('')
 
@@ -15,18 +16,19 @@ export default function (props) {
         e.target.disbaled = true;
 
         let res = await request({
-            route: 'exercise',
+            route: 'injury',
             method: 'POST',
             credentials: 'include',
             body: {
                 title,
                 videoId,
-                description: content,
+                description,
+                content
             }
         });
 
         if (res.status == 'success') {
-            setMessage('Exercise added successfully')
+            setMessage('Injury added successfully')
         }
         else {
             setMessage(res.message)
@@ -38,7 +40,7 @@ export default function (props) {
 
     return (
         <div className = 'card'>
-            <h3 style = {{margin: 0, marginBottom: 10}}>Add Exercise</h3>
+            <h3 style = {{margin: 0, marginBottom: 10}}>Add Injury</h3>
 
             <div style = {{verticalAlign: 'top', marginTop: 15, display: 'inline-block', width: 'calc(50% - 20px)', marginRight: 20}}>
                 <p>Title</p>
@@ -46,12 +48,12 @@ export default function (props) {
             </div>
 
             <div style = {{marginTop: 15, display: 'inline-block', width: 'calc(50% - 20px)', marginRight: 20}}>
-                <p>Body</p>
+                <p>Description</p>
                 <textarea 
-                    value={content}
-                    onChange={e => setContent(e.target.value)}
+                    value={description}
+                    onChange={e => setDescription(e.target.value)}
                     className="form-control"
-                    placeholder="Exercise Description here"
+                    placeholder="Injury Description here"
                 />
             </div>
 
@@ -60,6 +62,20 @@ export default function (props) {
                     title = 'Youtube Video Id'
                     placeholder = 'Youtube Video Id'
                     onChange = {(e) => setVideoId(e.target.value)}
+                />
+            </div>
+
+            <div style = {{marginTop: 15, display: 'inline-block', width: 'calc(50% - 20px)', marginRight: 20}}>
+                <p>Content</p>
+                <CKEditor 
+                    activeClass="editor" 
+                    content = {content}
+                    events = {{
+                        change: (e) => {
+                            setContent(e.editor.getData())
+                        }
+                    }}
+                    style = {{marginTop: 10}}
                 />
             </div>
 
