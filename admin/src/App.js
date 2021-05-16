@@ -11,6 +11,7 @@ import ViewMatches from './components/pages/ViewMatches'
 import EditMatch from './components/pages/EditMatch'
 import ViewTournaments from './components/pages/ViewTournaments'
 import Feedback from './components/pages/Feedback'
+import ViewBugs from './components/pages/ViewBugs'
 
 import cookieParser from './utils/cookieParser'
 
@@ -47,7 +48,8 @@ export default function () {
     {title: 'View Matches', onClick : () => setScreen('ViewMatches')},
     {title: 'Edit Match', onClick : () => setScreen('EditMatch')},
     {title: 'View Tournaments', onClick: () => setScreen('ViewTournaments')},
-    {title: 'View Feedbacks', onClick: () => setScreen('ViewFeedbacks')}
+    {title: 'View Feedbacks', onClick: () => setScreen('ViewFeedbacks')},
+    {title: 'View Bugs', onClick: () => setScreen('ViewBugs')}
   ]);
 
   if (isLoggedIn) {
@@ -78,6 +80,9 @@ export default function () {
         </div>
         <div style = {{display : screen == 'ViewFeedbacks' ? 'block' : 'none'}}>
           <Feedback base = {base} setBase = {setAppBase} setScreen = {setScreen} />
+        </div>
+        <div style = {{display : screen == 'ViewBugs' ? 'block' : 'none'}}>
+          <ViewBugs base = {base} setBase = {setAppBase} setScreen = {setScreen} />
         </div>
       </div>
     </>
