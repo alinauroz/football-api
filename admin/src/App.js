@@ -14,6 +14,7 @@ import Feedback from './components/pages/Feedback'
 import ViewBugs from './components/pages/ViewBugs'
 import ViewExercises from './components/pages/ViewExercises';
 import AddExercise from './components/pages/AddExercise';
+import ViewInjuries from './components/pages/ViewInjuries';
 
 import cookieParser from './utils/cookieParser'
 
@@ -54,6 +55,7 @@ export default function () {
     {title: 'View Bugs', onClick: () => setScreen('ViewBugs')},
     {title: 'View Exercises', onClick: () => setScreen('ViewExercises')},
     {title: 'Add Exercise', onClick: () => setScreen('AddExercise')},
+    {title: 'View Injuries', onClick: () => setScreen('ViewInjuries')}
   ]);
 
   if (isLoggedIn) {
@@ -93,6 +95,9 @@ export default function () {
         </div>
         <div style = {{display : screen == 'AddExercise' ? 'block' : 'none'}}>
           <AddExercise base = {base} setBase = {setAppBase} setScreen = {setScreen} />
+        </div>
+        <div style = {{display : screen == 'ViewInjuries' ? 'block' : 'none'}}>
+          <ViewInjuries base = {base} setBase = {setAppBase} setScreen = {setScreen} />
         </div>
       </div>
     </>
