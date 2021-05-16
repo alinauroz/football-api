@@ -3,7 +3,6 @@ import {api} from '../../data/api'
 import Viewer from '../../utils/Viewer'
 import Pager from '../../utils/Pager'
 import {request} from '../../utils/request'
-import {getTeamById} from '../../utils/getTeams'
 
 export default function (props) {
 
@@ -18,32 +17,20 @@ export default function (props) {
     const deletePage = async (e, data) => {
         e.target.disabled = true;
         let res = await request({
-            route: 'matches/',
+            route: 'exercise/',
             params: data._id,
             method: 'DELETE',
             credentials: 'include'
         })
-        if (res.status == 'success') setData([])
+        if (res.status == 'success') setData(null)
     }
 
     (async () => {
 
         if (data) return;
 
-        let res = await fetch(api + 'matches');
+        let res = await fetch(api + 'exercise');
         let data_ = await res.json();
-
-        data_.data.forEach(match => {
-            //post.img = {
-            //    type: 'image',
-            //    src: post.image
-            //}
-
-            match.host = getTeamById(match.host) ? getTeamById(match.host).name : '';
-            match.teamA = getTeamById(match.team1) ? getTeamById(match.team1).name : '';
-            match.teamB = getTeamById(match.team2) ? getTeamById(match.team2).name : '';
-
-        })
 
         setData(data_);
 
@@ -52,7 +39,7 @@ export default function (props) {
     return (
         <div className = 'card'>
             <h3 style = {{margin: 0, marginBottom: 10}}>
-                View Matches
+                View Exercises
                 <span
                     style={{
                         float: 'right',
@@ -63,7 +50,7 @@ export default function (props) {
                         type = 'button'
                         value = 'Add'
                         className = 'btn btn-success'
-                        onClick = {() => props.setScreen('AddNews')}
+                        onClick = {() => props.setScreen('AddExercise')}
                     />
                 </span>
             </h3>

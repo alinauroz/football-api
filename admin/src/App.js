@@ -12,6 +12,8 @@ import EditMatch from './components/pages/EditMatch'
 import ViewTournaments from './components/pages/ViewTournaments'
 import Feedback from './components/pages/Feedback'
 import ViewBugs from './components/pages/ViewBugs'
+import ViewExercises from './components/pages/ViewExercises';
+import AddExercise from './components/pages/AddExercise';
 
 import cookieParser from './utils/cookieParser'
 
@@ -49,7 +51,9 @@ export default function () {
     {title: 'Edit Match', onClick : () => setScreen('EditMatch')},
     {title: 'View Tournaments', onClick: () => setScreen('ViewTournaments')},
     {title: 'View Feedbacks', onClick: () => setScreen('ViewFeedbacks')},
-    {title: 'View Bugs', onClick: () => setScreen('ViewBugs')}
+    {title: 'View Bugs', onClick: () => setScreen('ViewBugs')},
+    {title: 'View Exercises', onClick: () => setScreen('ViewExercises')},
+    {title: 'Add Exercise', onClick: () => setScreen('AddExercise')},
   ]);
 
   if (isLoggedIn) {
@@ -83,6 +87,12 @@ export default function () {
         </div>
         <div style = {{display : screen == 'ViewBugs' ? 'block' : 'none'}}>
           <ViewBugs base = {base} setBase = {setAppBase} setScreen = {setScreen} />
+        </div>
+        <div style = {{display : screen == 'ViewExercises' ? 'block' : 'none'}}>
+          <ViewExercises base = {base} setBase = {setAppBase} setScreen = {setScreen} />
+        </div>
+        <div style = {{display : screen == 'AddExercise' ? 'block' : 'none'}}>
+          <AddExercise base = {base} setBase = {setAppBase} setScreen = {setScreen} />
         </div>
       </div>
     </>
