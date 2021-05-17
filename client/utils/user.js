@@ -8,6 +8,9 @@ class User {
         this._email = data.email;
         this._token = data.token;
         this._joinDate = data.createdAt;
+        this._phone = data.phone;
+        this._city = data.city;
+        this._role = data.role;
     }
 
     setData (data) {
@@ -18,6 +21,9 @@ class User {
         this._email = data.email;
         this._token = data.token;
         this._joinDate = data.createdAt;
+        this._phone = data.phone;
+        this._city = data.city;
+        this._role = data.role;
     }
 
     // getter and setter for class properties
@@ -52,6 +58,18 @@ class User {
 
     get email () {
         return this._email;
+    }
+
+    get phone () {
+        return this._phone;
+    }
+
+    get city () {
+        return this._city;
+    }
+
+    get role () {
+        return this._role;
     }
 
     set email (_email) {
