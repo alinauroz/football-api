@@ -8,6 +8,8 @@ import Exercies from "../Exercise/Exercise.Component";
 import Injury from "../Injuries/Injuries.Component";
 import Grounds from "../Ground/Ground.Component";
 import ReportBug from "../ReportBug/ReportBug.Component";
+import EditProfile from "../EditProfile/EditProfile.Component";
+import Tracker from "../Tracker/Tracker.Component";
 
 import { TouchableOpacity } from "react-native";
 
@@ -17,9 +19,10 @@ export default function ExtraMenu() {
     { name: "Grounds", icon: "globe", component: "grounds" },
     { name: "Exercies", icon: "heartbeat", component: "exercises"},
     { name: "Injuries", icon: "ambulance", component: "injury" },
-    { name: "Edit Profile", icon: "user", component: null },
+    { name: "Edit Profile", icon: "user", component: "edit-profile" },
     { name: "Feedback", icon: "bullhorn", component: "feedback" },
     { name: "Report Bug", icon: "bug", component: "bug" },
+    { name: "Step Tracker", icon: "bicycle", component: "tracker" },
     { name: "Log Out", icon: "sign-out", onClick: null },
   ];
 
@@ -55,6 +58,12 @@ export default function ExtraMenu() {
     }
     else if (Component === "bug") {
       return <ReportBug back={() => setSelectedComponent(null)} />
+    }
+    else if (Component === "edit-profile") {
+      return <EditProfile back={() => setSelectedComponent(null)} />
+    }
+    else if (Component === "tracker") {
+      return <Tracker back={() => setSelectedComponent(null)} />
     }
     else {
         return null;

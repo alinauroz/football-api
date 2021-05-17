@@ -70,7 +70,7 @@ function MyTabs(props) {
                     }
                 })}
             >
-                <Tab.Screen name="Home" component={EditProfile}/>
+                <Tab.Screen name="Home" component={Tracker}/>
                 <Tab.Screen name="Matches" component={Matches} />
                 <Tab.Screen name="Tournament" component={Tournament} />
                 <Tab.Screen name="Teams" component={Teams} />

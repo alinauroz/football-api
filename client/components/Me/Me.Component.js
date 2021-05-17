@@ -40,7 +40,15 @@ const Me = (props) => {
                     <Text style={styles.infoTitle}>Phone</Text>
                 </View>
                 <View style={styles.infoDetailContainer}>
-                    <Text>{''}</Text>
+                    <Text>{user.phone}</Text>
+                </View>
+            </View>
+            <View style={styles.infoContainer}>
+                <View style={styles.infoTitleContainer}>
+                    <Text style={styles.infoTitle}>Role</Text>
+                </View>
+                <View style={styles.infoDetailContainer}>
+                    <Text>{user.role}</Text>
                 </View>
             </View>
             <View style={styles.infoContainer}>
@@ -48,7 +56,7 @@ const Me = (props) => {
                     <Text style={styles.infoTitle}>City</Text>
                 </View>
                 <View style={styles.infoDetailContainer}>
-                    <Text>{''}</Text>
+                    <Text>{user.city}</Text>
                 </View>
             </View>
             <View style={styles.infoContainer}>
