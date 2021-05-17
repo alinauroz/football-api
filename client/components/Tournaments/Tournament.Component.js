@@ -34,7 +34,7 @@ const Tournament = function (props) {
     return (
         <>
         <Overlay
-            isVisible={viewId}
+            isVisible={viewId !== null}
             onBackdropPress={() => setViewId(null)}
         >
             <View style={styles.overlay}>

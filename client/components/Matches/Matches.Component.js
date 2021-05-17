@@ -150,9 +150,6 @@ const Matches = (props) => {
                 backgroundColor: 'white'
             }}
         >
-            <TouchableOpacity style={commonStyles.floatingButton}>
-                <Text>+</Text>
-            </TouchableOpacity>
             <View>
                 <ButtonGroup 
                     selectedIndex={selectedIndex}

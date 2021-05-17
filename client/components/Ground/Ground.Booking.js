@@ -13,22 +13,24 @@ const Booking = (props) => {
     const [calendarDisplay, setCalenderDisplay] = useState('none');
     const [freeSlots, setFreeSlots] = useState([]);
     const [selected, _setSelected] = useState([]);
+    const [payOnline, setPayOnline] = useState(false);
 
     const book = async () => {
         try {
             let res = await request({
-                route: 'ground/book/' + props.groudId,
+                route: 'ground/book/' + props.id,
                 type: 'PUT',
                 credential: 'include',
                 data: {
                     hours: selected,
-                    data
+                    date
                 }
             })
             console.log("RES", res);
         }
         catch (err) {
             setLoading(false);
+            console.log(err)
         }
     }
 
@@ -173,6 +175,10 @@ const Booking = (props) => {
             <Button 
                 title={`Book - PKR ${selected.length * props.rate}`}
                 disabled={loading || selected.length === 0}
+                onPress={
+                    payOnline ?
+                    null: book
+                }
                 style={{
                     marginTop: 20,
                     fontSize: 16,
