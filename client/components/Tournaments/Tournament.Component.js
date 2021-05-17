@@ -1,13 +1,17 @@
 import React from 'react';
-import {ScrollView, View, Text} from 'react-native';
+import {ScrollView, View, Text, TouchableOpacity} from 'react-native';
 import request from '../../utils/request';
 import styles from './Tournament.Style';
 import TournamentUnit from './Tournament.Unit';
+import CreateTournamentForm from './Tournament.Create';
 import {Overlay} from 'react-native-elements';
+import Icon from "react-native-vector-icons/FontAwesome";
+import commonStyles from '../../common/styles';
 
 const Tournament = function (props) {
 
     const [tournaments, setTournaments] = React.useState([]);
+    const [isAddVisible, setIsAddVisible] = React.useState(false);
     const [viewId, setViewId] = React.useState(null);
 
     const getTournaments = async () => {
@@ -23,10 +27,14 @@ const Tournament = function (props) {
         getTournaments();
     }, []);
 
+    const onTournamentCreate = () => {
+        alert('Tournament created');
+    }
+
     return (
         <>
         <Overlay
-            isVisible={viewId !== null}
+            isVisible={viewId}
             onBackdropPress={() => setViewId(null)}
         >
             <View style={styles.overlay}>
@@ -68,6 +76,22 @@ const Tournament = function (props) {
                 })
             }
         </ScrollView>
+        <Overlay
+            isVisible={isAddVisible}
+            onBackdropPress={() => setIsAddVisible(false)}
+        >
+            <CreateTournamentForm
+                onTournamentCreate={onTournamentCreate}
+            />
+        </Overlay>
+
+
+        <TouchableOpacity 
+            style={commonStyles.floatingButton}
+            onPress={() => setIsAddVisible(true)}
+        >
+            <Icon name="plus" style={{ color: 'white' }} size={24} />
+        </TouchableOpacity>
         </>
     )
 
