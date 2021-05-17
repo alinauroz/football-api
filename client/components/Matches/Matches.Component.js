@@ -105,7 +105,7 @@ const Matches = (props) => {
     if (detailId !== null && matchesToView[detailId]) {
         const match = matchesToView[detailId];
         return (
-            <ScrollView>
+            <ScrollView style={{ backgroundColor: 'white' }} >
                 <Header
                     onIconClick={() => setDetailId(null)}
                     iconName="chevron-left"

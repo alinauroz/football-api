@@ -23,7 +23,7 @@ const Injuries = ( props ) => {
     if (detailId !== null) {
         const injury = data[detailId];
         return (
-            <ScrollView>
+            <ScrollView style={{ backgroundColor: 'white' }}>
                 <Header
                     onIconClick={() => setDetailId(null)}
                     iconName="chevron-left"
@@ -44,7 +44,7 @@ const Injuries = ( props ) => {
     }
 
     return (
-        <ScrollView>
+        <ScrollView style={{ backgroundColor: 'white' }} >
             <Header
                 onIconClick={props.back}
                 iconName="chevron-left"

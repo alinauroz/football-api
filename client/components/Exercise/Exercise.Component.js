@@ -18,7 +18,7 @@ const Exercise = (props) => {
     }, []);
 
     return (
-        <ScrollView>
+        <ScrollView style={{ backgroundColor: 'white' }} >
             <Header 
                 onIconClick={props.back}
                 iconName="chevron-left"

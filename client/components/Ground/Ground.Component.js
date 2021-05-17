@@ -25,7 +25,7 @@ const Ground = function (props) {
 
     if (detailId !== null) {
         return (
-            <ScrollView>
+            <ScrollView style={{ backgroundColor: 'white' }} >
                 <Header
                     onIconClick={() => setDetailId(null)}
                     iconName="chevron-left"
@@ -41,7 +41,7 @@ const Ground = function (props) {
     }
 
     return (
-        <ScrollView>
+        <ScrollView style={{ backgroundColor: 'white' }} >
             <Header
                 onIconClick={props.back}
                 iconName="chevron-left"

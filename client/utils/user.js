@@ -13,6 +13,8 @@ class User {
     setData (data) {
         this._id = data._id;
         this._name = data.firstName + ' ' +data.lastName;
+        this._firstName = data.firstName;
+        this._lastName = data.lastName;
         this._email = data.email;
         this._token = data.token;
         this._joinDate = data.createdAt;
@@ -20,8 +22,20 @@ class User {
 
     // getter and setter for class properties
 
+    get id () {
+        return this._id;
+    }
+
     get name () {
         return this._name;
+    }
+
+    get firstName () {
+        return this._firstName;
+    }
+
+    get lastName () {
+        return this._lastName;
     }
 
     set name (_name) {
