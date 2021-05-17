@@ -5,8 +5,9 @@ import request from '../../utils/request';
 import styles from './ReportBug.Style';
 import Input from '../Basic/Input/Input.component'
 import Toast from "react-native-toast-message";
+import Header from '../Basic/Header/Header.Component';
 
-export default function Feedback () {
+export default function Feedback (props) {
 
     const [message, setMessage] = React.useState('');
     const [loading, setLoading] = React.useState(false);
@@ -15,11 +16,11 @@ export default function Feedback () {
         try {
 
             if (message.length < 4)
-                return alert("Feedback should be at least 4 characters long");
+                return alert("Message should be at least 4 characters long");
 
             setLoading(true);
             const res = await request({
-                route: 'feedback',
+                route: 'bug',
                 type: 'post',
                 body: {
                     message
@@ -33,7 +34,7 @@ export default function Feedback () {
 
             setMessage('');
             Toast.show({
-                text1: "Feedback submitted successfully"
+                text1: "Bug Report submitted successfully"
             })
         }
         catch (err) {
@@ -44,8 +45,13 @@ export default function Feedback () {
 
     return (
         <View style={styles.container}>
+            <Header
+                onIconClick={props.back}
+                iconName="chevron-left"
+                title="Report Bug"
+            />
             <Input
-                placeholder="Your feedback here"
+                placeholder="Write message here"
                 value={message}
                 onChangeText={(text) => setMessage(text)}
                 multiline={true}

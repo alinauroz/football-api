@@ -10,10 +10,10 @@ import Booking from './Ground.Booking';
 
 Icon.loadFont();
 
-const Ground = function () {
+const Ground = function (props) {
 
     const [data, setData] = React.useState([]);
-    const [detailId, setDetailId] = React.useState(0);
+    const [detailId, setDetailId] = React.useState(null);
 
     React.useEffect(() => {
         request({
@@ -42,7 +42,11 @@ const Ground = function () {
 
     return (
         <ScrollView>
-            <Text style={styles.title}>Grounds {detailId}</Text>
+            <Header
+                onIconClick={props.back}
+                iconName="chevron-left"
+                title="Grounds"
+            />
             {
                 data.map((ground, index) => (
                     <GroundUnit 

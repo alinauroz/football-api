@@ -7,14 +7,14 @@ import request from '../../utils/request';
 import Header from '../Basic/Header/Header.Component';
 import HTMLView from 'react-native-htmlview';
 
-const Injuries = () => {
+const Injuries = ( props ) => {
 
     const [data, setData] = React.useState([]);
     const [detailId, setDetailId] = React.useState(null);
 
     React.useEffect(() => {
         request({
-            route: 'exercise',
+            route: 'injury',
         }).then(data => {
             setData(data.data)
         })
@@ -36,9 +36,7 @@ const Injuries = () => {
                 />
                 <Card>
                 <HTMLView
-                  value={`
-                    <h1>Injury</h1><h3>This is some description on Injury</h3><ul> <li>Point 1</li><li>Point 2</li><li>Point 3</li></ul>
-                  `}
+                  value={injury.content}
                 />
                 </Card>
             </ScrollView>
@@ -47,7 +45,11 @@ const Injuries = () => {
 
     return (
         <ScrollView>
-            <Text style={styles.header}>Injuries</Text>
+            <Header
+                onIconClick={props.back}
+                iconName="chevron-left"
+                title="Injuries"
+            />
             {
                 data.map((exercise, index) => {
                     return (

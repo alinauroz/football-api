@@ -3,8 +3,9 @@ import { ScrollView, Text } from 'react-native';
 import Unit from './Exercise.Unit';
 import styles from './Exercise.Style'
 import request from '../../utils/request';
+import Header from '../Basic/Header/Header.Component';
 
-const Exercise = () => {
+const Exercise = (props) => {
 
     const [data, setData] = React.useState([]);
 
@@ -18,7 +19,11 @@ const Exercise = () => {
 
     return (
         <ScrollView>
-            <Text style={styles.header}>Exercises</Text>
+            <Header 
+                onIconClick={props.back}
+                iconName="chevron-left"
+                title="Exercises"
+            />
             {
                 data.map(exercise => {
                     return (

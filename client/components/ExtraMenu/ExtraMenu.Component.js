@@ -4,18 +4,22 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import styles from "./ExtraMenu.Style";
 
 import Feedback from "../Feedback/Feedback.Component";
-import { Touchable } from "react-native";
+import Exercies from "../Exercise/Exercise.Component";
+import Injury from "../Injuries/Injuries.Component";
+import Grounds from "../Ground/Ground.Component";
+import ReportBug from "../ReportBug/ReportBug.Component";
+
 import { TouchableOpacity } from "react-native";
 
 export default function ExtraMenu() {
   const [Component, setSelectedComponent] = useState(null);
   const menu = [
-    { name: "Grounds", icon: "globe", component: null },
-    { name: "Exercies", icon: "heartbeat", component: null },
-    { name: "Injuries", icon: "ambulance", component: null },
+    { name: "Grounds", icon: "globe", component: "grounds" },
+    { name: "Exercies", icon: "heartbeat", component: "exercises"},
+    { name: "Injuries", icon: "ambulance", component: "injury" },
     { name: "Edit Profile", icon: "user", component: null },
     { name: "Feedback", icon: "bullhorn", component: "feedback" },
-    { name: "Report Bug", icon: "bug", component: null },
+    { name: "Report Bug", icon: "bug", component: "bug" },
     { name: "Log Out", icon: "sign-out", onClick: null },
   ];
 
@@ -39,5 +43,20 @@ export default function ExtraMenu() {
     );
     else if (Component === "feedback") {
         return <Feedback  back={() => setSelectedComponent(null)} />
+    }
+    else if (Component === "exercises") {
+        return <Exercies back={() => setSelectedComponent(null)} />
+    }
+    else if (Component === "injury") {
+      return <Injury back={() => setSelectedComponent(null)} />
+    }
+    else if (Component === "grounds") {
+      return <Grounds back={() => setSelectedComponent(null)} />
+    }
+    else if (Component === "bug") {
+      return <ReportBug back={() => setSelectedComponent(null)} />
+    }
+    else {
+        return null;
     }
 }
