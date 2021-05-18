@@ -1,5 +1,6 @@
 import request from './request';
-import {find} from 'lodash'
+import {find} from 'lodash';
+import user from './user';
 let teams = [];
 
 (async () => {
@@ -9,8 +10,15 @@ let teams = [];
     }
 })();
 
-export default getTeams = (query) => {
 
+export const getTeams = ({mine}) => {
+    let teams__ =  mine ?
+    teams.filter((team) => {
+        console.log(team.admin, team.owner, user.id, team.admin == user.id)
+        return team.owner == user.id
+    }) : teams;
+
+    return teams__;
 }
 
 export const getTeamById = (id) => {
