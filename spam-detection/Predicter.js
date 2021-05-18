@@ -70,3 +70,5 @@ class PredictSpam {
 
     }
 };
+
+export default PredictSpam;
