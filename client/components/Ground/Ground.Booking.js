@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import { View, TouchableOpacity, ScrollView, Text, ActivityIndicator } from 'react-native';
-import { Button } from 'react-native-elements';
+import { View, TouchableOpacity, Text, ActivityIndicator } from 'react-native';
+import { Button, CheckBox } from 'react-native-elements';
 import styles from './Ground.Style';
 import { Calendar } from 'react-native-calendars';
 import request from '../../utils/request';
+import Payment from '../Payment/Payment.Component';
 
 const Booking = (props) => {
 
@@ -14,6 +15,7 @@ const Booking = (props) => {
     const [freeSlots, setFreeSlots] = useState([]);
     const [selected, _setSelected] = useState([]);
     const [payOnline, setPayOnline] = useState(false);
+    const [payment, setPayment] = useState(false);
 
     const book = async () => {
         try {
@@ -21,7 +23,7 @@ const Booking = (props) => {
                 route: 'ground/book/' + props.id,
                 type: 'PUT',
                 credential: 'include',
-                data: {
+                body: {
                     hours: selected,
                     date
                 }
@@ -89,6 +91,16 @@ const Booking = (props) => {
             setLoading(false);
         }
     }, [date])
+
+    if (payOnline && payment) {
+        return (
+            <>
+            <Text>Hello</Text>
+            <Payment/>
+            <Text>Hello</Text>
+            </>
+        );
+    }
 
     return (
         
@@ -172,12 +184,22 @@ const Booking = (props) => {
                     )
                 })
             }
+            <View style={{ width: '100%', marginTop: 10 }}>
+                <CheckBox
+                    checked={payOnline}
+                    title="Pay Online"
+                    onPress={() => setPayOnline(!payOnline)}
+                />
+            </View>
             <Button 
                 title={`Book - PKR ${selected.length * props.rate}`}
                 disabled={loading || selected.length === 0}
                 onPress={
                     payOnline ?
-                    null: book
+                    () => {
+                        setPayOnline(true);
+                        props.payOnline(10);
+                    }: book
                 }
                 style={{
                     marginTop: 20,

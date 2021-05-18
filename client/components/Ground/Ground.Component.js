@@ -7,6 +7,7 @@ import { ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Header from '../Basic/Header/Header.Component';
 import Booking from './Ground.Booking';
+import Payment from '../Payment/Payment.Component'
 
 Icon.loadFont();
 
@@ -14,6 +15,7 @@ const Ground = function (props) {
 
     const [data, setData] = React.useState([]);
     const [detailId, setDetailId] = React.useState(null);
+    const [payOnline, setPayOnline] = React.useState(0);
 
     React.useEffect(() => {
         request({
@@ -22,6 +24,10 @@ const Ground = function (props) {
             setData(res.data)
         })
     }, []);
+
+    if (payOnline) {
+        return <Payment />
+    }
 
     if (detailId !== null) {
         return (
@@ -35,6 +41,7 @@ const Ground = function (props) {
                     id={data[detailId]?._id}
                     rate={200}
                     availableHours={[9, 10, 11, 12, 13, 14, 15, 16, 17, 18]}
+                    payOnline={(amount) => {setPayOnline(amount)}}
                 />
             </ScrollView>
         )
