@@ -28,7 +28,9 @@ const Booking = (props) => {
                     date
                 }
             })
-            console.log("RES", res);
+            if (!res.error) {
+                alert('Done Booking');
+            }
         }
         catch (err) {
             setLoading(false);
@@ -95,9 +97,11 @@ const Booking = (props) => {
     if (payOnline && payment) {
         return (
             <>
-            <Text>Hello</Text>
-            <Payment/>
-            <Text>Hello</Text>
+            <Payment
+                onSucess={book}
+                onFailure={() => alert('Fail')}
+                amount={selected.length * props.rate}
+            />
             </>
         );
     }

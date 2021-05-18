@@ -9,17 +9,15 @@ import styles from './Matches.Style';
 
 export default function ({ match }) {
 
-    match.stream = "qsqn63av3cE"
-
     return (
         <ScrollView>
             {
-                match.stream ?
+                match.videoId ?
                 <Card>
                     <YoutubePlayer
                       height={190}
                       play={true}
-                      videoId={match.stream}
+                      videoId={match.videoId}
                     />
                     <Card.Divider></Card.Divider>
                     <Text>{ match.isLive ? "Live Streaming" : "Highlights" }</Text>
