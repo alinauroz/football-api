@@ -114,7 +114,7 @@ const Teams = () => {
 
     if (detailId !== null) {
         return (
-            <ScrollView>
+            <ScrollView style={{ backgroundColor: 'white' }}>
                 <Header 
                     title={`Team: ${teams[detailId]?.name}`}
                     onIconClick={() => setDetailId(null)}
