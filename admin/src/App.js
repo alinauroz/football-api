@@ -18,7 +18,7 @@ import ViewInjuries from './components/pages/ViewInjuries';
 import AddInjury from './components/pages/AddInjury';
 import ViewUsers from './components/pages/ViewUsers';
 import ViewGrounds from './components/pages/ViewGrounds';
-
+import AddGround from './components/pages/AddGround';
 import cookieParser from './utils/cookieParser'
 
 import { request } from './utils/request'
@@ -61,7 +61,8 @@ export default function () {
     {title: 'View Injuries', onClick: () => setScreen('ViewInjuries')},
     {title: 'Add Injury', onClick: () => setScreen('AddInjury')},
     {title: 'View Users', onClick: () => setScreen('ViewUsers')},
-    {title: 'View Grounds', onClick: () => setScreen('ViewGrounds')}
+    {title: 'View Grounds', onClick: () => setScreen('ViewGrounds')},
+    {title: 'Add Ground', onClick: () => setScreen('AddGround')}
   ]);
 
   if (isLoggedIn) {
@@ -113,6 +114,9 @@ export default function () {
         </div>
         <div style = {{display : screen == 'ViewGrounds' ? 'block' : 'none'}}>
           <ViewGrounds base = {base} setBase = {setAppBase} setScreen = {setScreen} />
+        </div>
+        <div style = {{display : screen == 'AddGround' ? 'block' : 'none'}}>
+          <AddGround base = {base} setBase = {setAppBase} setScreen = {setScreen} />
         </div>
       </div>
     </>
