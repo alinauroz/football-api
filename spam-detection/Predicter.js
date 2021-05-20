@@ -71,4 +71,4 @@ class PredictSpam {
     }
 };
 
-export default PredictSpam;
+module.exports = PredictSpam;
