@@ -9,6 +9,7 @@ export default function (props) {
     const [data, setData] = React.useState();
     const [pageSize, setPageSize] = React.useState(10);
     const [startIndex, setStartIndex] = React.useState(0);
+    const [bookings, setBookings] = React.useState(null);
 
     const setPage = (i_) => {
         setStartIndex(--i_ * pageSize)
@@ -25,6 +26,10 @@ export default function (props) {
         if (res.status == 'success') setData(null)
     }
 
+    const showBookings = (e, data) => {
+        setBookings(data.bookings);
+    }
+
     (async () => {
 
         if (data) return;
@@ -36,6 +41,30 @@ export default function (props) {
 
     })()
 
+    if (bookings) {
+        
+        if (bookings.length > 0 && !bookings[0].date)
+            bookings[0].date = '.';
+
+        return (
+            <>
+                <div style={{ marginBottom: 10 }}>
+                    <input 
+                        type="button"
+                        value="Back"
+                        onClick={() => setBookings(null)}
+                        className="btn btn-warning"
+                    />
+                    <span style={{ marginLeft: 10 }}>Bookings</span>
+                </div>
+                <Viewer 
+                    data = {bookings}
+                    hidden = {['_id']}
+                />
+            </>
+        )
+    }
+
     return (
         <div className = 'card'>
             <h3 style = {{margin: 0, marginBottom: 10}}>
@@ -43,7 +72,6 @@ export default function (props) {
                 <span
                     style={{
                         float: 'right',
-                        display: 'none'
                     }}
                 >
                     <input
@@ -62,6 +90,7 @@ export default function (props) {
                     data = {data.data.slice(startIndex, pageSize + startIndex)}
                     hidden = {['_id', 'bookings',]}
                     actions = {[
+                        {onClick: showBookings, value: 'Bookings', className : 'btn btn-success margin-5', break: true},
                         {onClick: deletePage, value: 'Delete', className : 'btn btn-danger margin-5', break: true}
                     ]}
                 />
