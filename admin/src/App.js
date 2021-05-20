@@ -16,6 +16,8 @@ import ViewExercises from './components/pages/ViewExercises';
 import AddExercise from './components/pages/AddExercise';
 import ViewInjuries from './components/pages/ViewInjuries';
 import AddInjury from './components/pages/AddInjury';
+import ViewUsers from './components/pages/ViewUsers';
+import ViewGrounds from './components/pages/ViewGrounds';
 
 import cookieParser from './utils/cookieParser'
 
@@ -58,6 +60,8 @@ export default function () {
     {title: 'Add Exercise', onClick: () => setScreen('AddExercise')},
     {title: 'View Injuries', onClick: () => setScreen('ViewInjuries')},
     {title: 'Add Injury', onClick: () => setScreen('AddInjury')},
+    {title: 'View Users', onClick: () => setScreen('ViewUsers')},
+    {title: 'View Grounds', onClick: () => setScreen('ViewGrounds')}
   ]);
 
   if (isLoggedIn) {
@@ -103,6 +107,12 @@ export default function () {
         </div>
         <div style = {{display : screen == 'AddInjury' ? 'block' : 'none'}}>
           <AddInjury base = {base} setBase = {setAppBase} setScreen = {setScreen} />
+        </div>
+        <div style = {{display : screen == 'ViewUsers' ? 'block' : 'none'}}>
+          <ViewUsers base = {base} setBase = {setAppBase} setScreen = {setScreen} />
+        </div>
+        <div style = {{display : screen == 'ViewGrounds' ? 'block' : 'none'}}>
+          <ViewGrounds base = {base} setBase = {setAppBase} setScreen = {setScreen} />
         </div>
       </div>
     </>

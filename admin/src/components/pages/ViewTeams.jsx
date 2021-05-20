@@ -72,9 +72,8 @@ export default function (props) {
                 <>
                 <Viewer 
                     data = {data.data.slice(startIndex, pageSize + startIndex)}
-                    hidden = {['_id', 'image']}
+                    hidden = {['_id', 'image', 'rejectedMatchesRequest', 'matchesRequest']}
                     actions = {[
-                        {onClick: EditAction, value: 'Edit', className : 'btn btn-primary margin-5'},
                         {onClick: deletePage, value: 'Delete', className : 'btn btn-danger margin-5', break: true}
                     ]}
                 />

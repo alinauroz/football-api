@@ -1,8 +1,5 @@
 import React from 'react'
 import Field from '../unit/Field'
-import CKEditor from 'react-ckeditor-component'
-import ImageLoader from '../../utils/ImageLoader'
-import getUnique from '../../utils/getUnique'
 import { request } from '../../utils/request'
 
 
@@ -13,10 +10,11 @@ export default function (props) {
     const [team, setTeam] = React.useState('');
     const [id, setId] = React.useState('');
     const [message, setMessage] = React.useState('');
+    const [videoId, setVideoId] = React.useState('');
 
     const updateLive = (status) => {
         request({
-            route: 'matches/' + id,
+            route: 'matches/summary/' + id,
             credentials: 'include',
             method: 'PUT',
             body: {
@@ -24,6 +22,17 @@ export default function (props) {
             }
         })
     }
+
+    const updateVideoId = () => {
+        request({
+            route: 'matches/' + id,
+            credentials: 'include',
+            method: 'PUT',
+            body: {
+                videoId
+            }
+        })
+    } 
 
     const submitSummary = async (e) => {
 
@@ -90,6 +99,26 @@ export default function (props) {
                     >
                         <i class="glyphicon glyphicon-ok" style = {{marginRight: 5}}></i>
                         Add to Summary
+                    </button>
+                    
+                </div>
+            </div>
+
+            <div style={{ margin: "20px 0px" }}>
+                <Field 
+                    onChange={(e) => setVideoId(e.target.value)}
+                    title="Hightlights/Stream Video Id"
+                />
+                <div style = {{display: 'inline-block', width: 'calc(50% - 20px)', marginRight: 20, marginTop: 10}}>
+                    
+                    <button
+                        type = 'button' 
+                        value = 'Done'
+                        className = 'btn btn-success'
+                        onClick = {updateVideoId}
+                    >
+                        <i class="glyphicon glyphicon-ok" style = {{marginRight: 5}}></i>
+                        Update Stream/Highlights
                     </button>
                     
                 </div>
