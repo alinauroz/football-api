@@ -5,80 +5,91 @@ import styles from './Me.style'
 import {set} from '../../utils/storage'
 import user from '../../utils/user'
 
+const cover = "https://lh3.googleusercontent.com/proxy/QHFBsqWhazrUd0TayCr4aePhVx9FSNfMCAfZrHvSFM-DClseUQJaDR_1H2QgeoS0xmbvaSO1o4cdzfQcJIOFUSs27FjgMdlT8yjt"
+
 const Me = (props) => {
+
+    const [i, setI] = React.useState(0);
+
+    React.useEffect(() => {
+        user.listenChange(() => {
+            console.log("Change")
+            setI(i+1)
+        })
+    }, [])
 
     return (
         <ScrollView
             style={styles.container}
         >
-            <Image
-                containerStyle={styles.imageContainer}
-                source={{
-                    uri: 'https://www.searchpng.com/wp-content/uploads/2019/02/Profile-PNG-Icon.png'
+            <View 
+                style={{ 
+                    width: '100%', 
+                    height: 200, 
+                    marginBottom: -75
                 }}
-                transitionDuration={1000}
-                style={{ width: 200, height: 200 }}
-            />
-            <View style={styles.infoContainer}>
-                <View style={styles.infoTitleContainer}>
-                    <Text style={styles.infoTitle}>Name</Text>
-                </View>
-                <View style={styles.infoDetailContainer}>
-                    <Text>{user.name}</Text>
-                </View>
+            >
+                <Image 
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        overflow: 'hidden',
+                    }}
+                    source={{ uri: cover }}
+                />
             </View>
-            <View style={styles.infoContainer}>
-                <View style={styles.infoTitleContainer}>
-                    <Text style={styles.infoTitle}>Email</Text>
-                </View>
-                <View style={styles.infoDetailContainer}>
-                    <Text>{user.email}</Text>
-                </View>
+            <View>
+                <Image
+                    containerStyle={styles.imageContainer}
+                    source={{
+                        uri: user.photo ? user.photo : 'https://www.searchpng.com/wp-content/uploads/2019/02/Profile-PNG-Icon.png'
+                    }}
+                    transitionDuration={1000}
+                    style={{ width: 150, height: 150, borderRadius: 100 }}
+                />
+                <Text
+                    style={{ ...styles.menuItemValue, alignSelf: 'flex-start', fontSize: 24, marginBottom: -35, marginLeft: 10 }}
+                >
+                    Profile
+                </Text>
+                <Button 
+                    title='Log Out'
+                    onPress={() => {
+                        set('token', null);
+                        props.reload();
+                    }}
+                    style={{
+                        alignSelf: 'flex-end',
+                        width: 120,
+                        marginTop: 0,
+                        marginBottom: 20
+                    }}
+                />
             </View>
-            <View style={styles.infoContainer}>
-                <View style={styles.infoTitleContainer}>
-                    <Text style={styles.infoTitle}>Phone</Text>
-                </View>
-                <View style={styles.infoDetailContainer}>
-                    <Text>{user.phone}</Text>
-                </View>
+            <View style={styles.menuContainer}>
+                <Text style={styles.menuItemName}>Name</Text>
+                <Text style={styles.menuItemValue}>{user.name}</Text>
             </View>
-            <View style={styles.infoContainer}>
-                <View style={styles.infoTitleContainer}>
-                    <Text style={styles.infoTitle}>Role</Text>
-                </View>
-                <View style={styles.infoDetailContainer}>
-                    <Text>{user.role}</Text>
-                </View>
+            <View style={styles.menuContainer}>
+                <Text style={styles.menuItemName}>Email</Text>
+                <Text style={styles.menuItemValue}>{user.email}</Text>
             </View>
-            <View style={styles.infoContainer}>
-                <View style={styles.infoTitleContainer}>
-                    <Text style={styles.infoTitle}>City</Text>
-                </View>
-                <View style={styles.infoDetailContainer}>
-                    <Text>{user.city}</Text>
-                </View>
+            <View style={styles.menuContainer}>
+                <Text style={styles.menuItemName}>Role</Text>
+                <Text style={styles.menuItemValue}>{user.role}</Text>
             </View>
-            <View style={styles.infoContainer}>
-                <View style={styles.infoTitleContainer}>
-                    <Text style={styles.infoTitle}>Join Date</Text>
-                </View>
-                <View style={styles.infoDetailContainer}>
-                    <Text>{user.joinDate}</Text>
-                </View>
+            <View style={styles.menuContainer}>
+                <Text style={styles.menuItemName}>City</Text>
+                <Text style={styles.menuItemValue}>{user.city}</Text>
             </View>
-            <Button 
-                title='Log Out'
-                onPress={() => {
-                    set('token', null);
-                    props.reload();
-                }}
-                style={{
-                    marginTop: 30,
-                    alignSelf: 'center',
-                    width: 120,
-                }}
-            />
+            <View style={styles.menuContainer}>
+                <Text style={styles.menuItemName}>Phone</Text>
+                <Text style={styles.menuItemValue}>{user.phone}</Text>
+            </View>
+            <View style={styles.menuContainer}>
+                <Text style={styles.menuItemName}>Joined On</Text>
+                <Text style={styles.menuItemValue}>{user.joinDate}</Text>
+            </View>
         </ScrollView>
     )
 

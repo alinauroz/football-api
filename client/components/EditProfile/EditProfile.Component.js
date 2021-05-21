@@ -17,6 +17,8 @@ import user from '../../utils/user'
 import Error from '../Error/Error.Component'
 import { ScrollView } from 'react-native';
 import Header from '../Basic/Header/Header.Component';
+import DocumentPicker from 'react-native-document-picker';
+import RNFetchBlob from 'rn-fetch-blob';
 
 const Login = (props) => {
 
@@ -29,10 +31,43 @@ const Login = (props) => {
     const [city, setCity] = React.useState(user.city);
     const [phone, setPhone] = React.useState(user.phone);
     const [error, setError] = React.useState('');
+    const [base64, setBase64] = React.useState('');
+    const [uri, setUri] = React.useState('');
+
+    const selectFile = async () => {
+        const res = await DocumentPicker.pick({
+            readContent: true,
+            type: [DocumentPicker.types.images],
+        })
+        if (res.uri) {
+            let filename
+            if (Platform.OS === 'ios') {
+                filename = res.uri.replace('file:', '')
+            } else {
+                filename = res.uri
+            }
+            const base64 = await RNFetchBlob.fs.readFile(filename, 'base64');
+            setUri(res.uri)
+            setBase64("data:image/jpg;base64," + base64.substr(0, base64.length));
+        }
+    }
 
     const signup = async () => {
         try {
+            let extra = {}
             setLoading(true);
+            if (base64) {
+                let res = await request({
+                    route: 'images',
+                    type: 'POST',
+                    body: {
+                        base64
+                    }
+                })
+                user.photo = res.fileName;
+                extra.photo = res.fileName;
+                console.log('Extra', user)
+            }
             let res = await request({
                 route: 'users/me',
                 type: 'PUT',
@@ -42,14 +77,15 @@ const Login = (props) => {
                     email: username,
                     role,
                     city,
-                    phone
+                    phone,
+                    ... extra
                 }
             })
-            console.log(res);
             
             if (res.status === 'success') {
                 alert('Account updated')
                 setLoading(false);
+                set('user', {photo: extra.photo})
             }
             else {
                 setError(res.message ? res.message: 'Unknown error occurred');
@@ -105,6 +141,23 @@ const Login = (props) => {
             onChangeText={(val) => setRole(val)}
             value={role}
         />
+        {
+            base64 ?
+            (
+                <Image 
+                    source={{ uri: uri }}
+                    style={{
+                        width: 200,
+                        height: 200
+                    }}
+                />
+            ):
+            <TouchableOpacity
+                onPress={selectFile}
+            >
+                <Text>Select File</Text>
+            </TouchableOpacity>
+        }
         <Button
           title="Update"
           onPress={signup}

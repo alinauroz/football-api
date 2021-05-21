@@ -35,8 +35,6 @@ const App = () => {
       if (token && token !== 'null') {
         let userData = await get('user');
         user.setData(userData);
-        console.log(userData)
-        console.log('USER', user);
         setLoggedIn(true);
       }
     })

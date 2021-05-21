@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { api } from './request'
 
 class User {
     
@@ -11,9 +12,12 @@ class User {
         this._phone = data.phone;
         this._city = data.city;
         this._role = data.role;
+        this._photo = data.photo;
+        this.onUpdateList = [];
     }
 
     setData (data) {
+        console.log("Data", data)
         this._id = data._id;
         this._name = data.firstName + ' ' +data.lastName;
         this._firstName = data.firstName;
@@ -24,6 +28,7 @@ class User {
         this._phone = data.phone;
         this._city = data.city;
         this._role = data.role;
+        this._photo = data.photo;
     }
 
     // getter and setter for class properties
@@ -74,10 +79,29 @@ class User {
 
     set email (_email) {
         this._email = _email;
+        this.runListeners();
     }
 
     get joinDate () {
         return moment (new Date(this._joinDate)).format('MMM DD, YY');;
+    }
+
+    get photo () {
+        return this._photo ? api + "images/" +this._photo: '';
+    }
+
+    set photo (name) {
+        this._photo = name;
+        this.runListeners();
+    }
+
+    listenChange (func) {
+        this.onUpdateList.push(func)
+    }
+
+    runListeners = () => {
+        console.log("Running Listeners", this.onUpdateList.length)
+        this.onUpdateList.forEach(func => func());
     }
 
 
