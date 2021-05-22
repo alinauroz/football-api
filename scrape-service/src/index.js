@@ -2,8 +2,10 @@ const puppeteer = require('puppeteer');
 const removeExisting = require('./removeExisting');
 const saveToLogs = require('./saveToLog');
 const postNews = require('./postNews');
+const cron = require('node-cron');
 
-(async () => {
+const scrape = async () => {
+    console.log(":::::::START:::::::")
     let url = "https://www.footballpakistan.com/";
     let browser = await puppeteer.launch();
     let page = await browser.newPage();
@@ -37,5 +39,11 @@ const postNews = require('./postNews');
         await postNews(data.imagesLinks[i], data.headingsBody[i], data.summaryContent[i], data.urls[i]);
         saveToLogs(data.urls[i]);
     }
-    console.log(":::::::DONE::::::::")
-})();
+    console.log(":::::::DONE::::::::");
+    browser.close();
+}
+
+cron.schedule('* * * * *', function () {
+    scrape();
+});
+
