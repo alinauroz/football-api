@@ -139,6 +139,7 @@ const Booking = (props) => {
                     <Calendar 
                         onDayPress={(day) => {
                             setDate(day.dateString);
+                            setSelected([]);
                             setCalenderDisplay('none');
                         }}
                         style={{
