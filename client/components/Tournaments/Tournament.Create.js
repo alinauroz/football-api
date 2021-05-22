@@ -26,14 +26,12 @@ const CreateTournament = (props) => {
                 }
             });
             setLoading(false);
-            console.log(res);
             if (res.status === 'success') {
                 props.onTournamentCreate();
             }
         }
         catch(err) {
             setLoading(false);
-            console.log("Create Tournament Error");
             console.log(err);
         }
     }

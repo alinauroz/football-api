@@ -68,7 +68,7 @@ const Tournament = function (props) {
             <Payment 
                 onSuccess={addTeam}
                 onFailure={() => alert("Payment failed")}
-                price={tournaments[viewId].registrationFees}
+                amount={tournaments[viewId].registrationFees}
             />
         )
     }

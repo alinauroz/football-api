@@ -14,7 +14,6 @@ let teams = [];
 export const getTeams = ({mine}) => {
     let teams__ =  mine ?
     teams.filter((team) => {
-        console.log(team.admin, team.owner, user.id, team.admin == user.id)
         return team.owner == user.id
     }) : teams;
 
