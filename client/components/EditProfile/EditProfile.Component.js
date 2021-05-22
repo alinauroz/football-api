@@ -19,6 +19,7 @@ import { ScrollView } from 'react-native';
 import Header from '../Basic/Header/Header.Component';
 import DocumentPicker from 'react-native-document-picker';
 import RNFetchBlob from 'rn-fetch-blob';
+import { first } from 'lodash';
 
 const Login = (props) => {
 
@@ -85,7 +86,24 @@ const Login = (props) => {
             if (res.status === 'success') {
                 alert('Account updated')
                 setLoading(false);
-                set('user', {photo: extra.photo})
+                let _user = await get('user');
+                if (firstName)
+                    _user.firstName = firstName;
+                if (lastName)
+                    _user.lastName = lastName;
+                if (username)
+                    _user.email = username;
+                if (role)
+                    _user.role = role;
+                if (city)
+                    _user.city = city;
+                if (phone)
+                    _user.phone = phone
+                if (extra.photo)
+                    _user.photo = extra.photo
+                set('user', _user);
+                user.setData(_user);
+                user.runListeners();
             }
             else {
                 setError(res.message ? res.message: 'Unknown error occurred');

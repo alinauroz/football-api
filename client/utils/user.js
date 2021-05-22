@@ -100,7 +100,6 @@ class User {
     }
 
     runListeners = () => {
-        console.log("Running Listeners", this.onUpdateList.length)
         this.onUpdateList.forEach(func => func());
     }
 
