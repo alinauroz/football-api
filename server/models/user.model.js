@@ -33,6 +33,14 @@ const userSchema = new mongoose.Schema(
 			minlength: 6,
 			select: false,
 		},
+		city: {
+			type: String,
+			default: ''
+		},
+		role: {
+			type: String,
+			default: ''
+		},
 		passwordChangedAt: Date,
 		passwordResetToken: String,
 		emailConfirmToken: String,

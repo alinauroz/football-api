@@ -7,6 +7,7 @@ router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 router.get('/c/count', userController.getCount);
 router.get('/', userController.getAll)
+router.get('/confirmEmail', authController.confirmEmail)
 
 router.use(authController.protect);
 

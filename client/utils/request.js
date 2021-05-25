@@ -1,8 +1,8 @@
 import {set, get} from './storage'
 import user from './user'
 
-export const api = "http://localhost:5001/"
-//export const api = "https://obscure-ocean-64391.herokuapp.com/";
+//export const api = "http://localhost:5001/"
+export const api = "https://obscure-ocean-64391.herokuapp.com/";
 console.log("Api", api);
 export default request = async (data) => {
 
@@ -23,6 +23,7 @@ export default request = async (data) => {
             },
             ... params,
         });
+        res.text().then(d => console.log("Data", d))
         return res.json();
     }
     catch (err) {

@@ -14,6 +14,10 @@ const matchSchema = new Schema({
         type: Schema.ObjectId,
         required: [true, 'Host is required']
     },
+    videoId: {
+        type: String,
+        default: ''
+    },
     venue: {
         type: String,
         required: [true, 'Venue is required']

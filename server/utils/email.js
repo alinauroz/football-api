@@ -1,7 +1,6 @@
 const pug = require('pug')
 const nodemailer = require('nodemailer')
 const htmlToText = require('html-to-text')
-const {Info, Price} = require('../data/info')
 
 module.exports = class Email {
 	constructor(user, url = '#') {
@@ -9,23 +8,22 @@ module.exports = class Email {
 		this.firstName = user.firstName
 		this.lastName = user.lastName
 		this.url = url
-		this.from = `${process.env.EMAIL_FROM}`
+		this.from = `crowdtestingali@gmail.com`
 		this.data = user
 	}
 
 	async newTransport() {
-		if (process.env.NODE_ENV === 'production') {
-			let info = await Info();
+		if (process.env.NODE_ENV === 'production' || true) {
 			return nodemailer.createTransport({
-				service: 'SendGrid',
-				auth: {
-					//user: process.env.SENDGRID_USERNAME,
-					//pass: process.env.SENDGRID_PASSWORD,
-					user: 'apikey',
-					//pass: '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'
-					pass: info.sendgridKey,
-				},
-			})
+                host: 'smtp.gmail.com',
+                port: 587,
+                secure: false,
+                requireTLS: true,
+                auth: {
+                    user: 'crowdtestingali@gmail.com',
+                    pass: 'alin3211'         
+                }
+            });
 		}
 		return nodemailer.createTransport({
 			host: process.env.EMAIL_HOST,
@@ -39,8 +37,6 @@ module.exports = class Email {
 
 	async send(template, subject) {
 		// 1) Render HTML based on a pug template
-		let info = await Info();
-		let price = await Price();
 		const html = pug.renderFile(
 			`${__dirname}/../templates/emails/${template}.pug`,
 			{
@@ -48,8 +44,6 @@ module.exports = class Email {
 				lastName: this.lastName,
 				url: this.url,
 				subject,
-				info,
-				price,
 				data: this.data
 			}
 		)
@@ -67,32 +61,16 @@ module.exports = class Email {
 		await transport.sendMail(mailOptions)
 	}
 
-	async sendWelcome() {
-		await this.send('welcome', 'Welcome to PicsFies!')
-	}
-
 	async sendConfirmation() {
 		await this.send('confirm', 'Confirm your email address')
 	}
 
-	async sendOrderComplete() {
-		await this.send(
-			'order_complete',
-			'PicsFies: Good News! Your order is complete!'
-		)
+	async sendBugAlert() {
+		await this.send('bug', 'Bug Alert')
 	}
 
-	async sendPasswordReset() {
-		await this.send(
-			'password',
-			'Your password reset token (valid for only 10 mins)'
-		)
+	async sendFeedbackAlert () {
+		await this.send('feedback', 'Feedback Alert');
 	}
 
-	async sendInvoice () {
-		await this.send(
-			'invoice',
-			'Your order has been placed'
-		)
-	}
 }

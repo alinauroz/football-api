@@ -67,3 +67,5 @@ exports.addSummary = catchAsync(async (req, res, next) => {
     })
 
 });
+
+exports.update = factory.updateOne(Match)

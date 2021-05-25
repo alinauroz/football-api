@@ -56,7 +56,8 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 		'country',
 		'state',
 		'city',
-		'zip'
+		'zip',
+		'role'
 	)
 
 	const updatedUser = await User.findByIdAndUpdate(

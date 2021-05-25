@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const exerciseSchema = new Schema({
+const injurySchema = new Schema({
     title: {
         type: String,
         required: [true, 'Exercise title is required'],
@@ -13,9 +13,13 @@ const exerciseSchema = new Schema({
     description: {
         type: String,
         required: [true, 'Description is required']
+    },
+    content: {
+        type: String,
+        default: ''
     }
 }, {
     timestamps: true,
 });
 
-module.exports = mongoose.model('Exercise', exerciseSchema);
+module.exports = mongoose.model('Injury', injurySchema);

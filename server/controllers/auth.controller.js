@@ -2,6 +2,7 @@ const crypto = require('crypto')
 const User = require('../models/user.model')
 const AppError = require('../utils/appError')
 const catchAsync = require('../utils/catchAsync')
+const Email = require('../utils/email');
 
 const {
 	createSendToken,
@@ -43,9 +44,15 @@ exports.signup = catchAsync(async (req, res, next) => {
 		address1,
 		address2,
     })
-    
-	let user = await newUser.save();
-	res.send({status: 'success', data: user});
+
+	const emailConfirmToken = newUser.createEmailConfirmToken.apply(newUser)
+	await newUser.save()
+	const url = `${req.protocol}://${req.get(
+		'host'
+	)}/users/confirmEmail?token=${emailConfirmToken}`
+	res.send({ status: 'success' })
+	await new Email(newUser, url).sendConfirmation()
+
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -63,6 +70,15 @@ exports.login = catchAsync(async (req, res, next) => {
 		return next(
 			new AppError(
 				'You are blocked by the website',
+				403
+			)
+		)
+	}
+
+	if (!user.emailConfirmed) {
+		return next(
+			new AppError(
+				'Email not verified',
 				403
 			)
 		)
@@ -101,6 +117,30 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 		message: 'Password changed successfully. Please login to continue.',
 	})
 	// createSendToken(user, 200, req, res)
+})
+
+exports.confirmEmail = catchAsync(async (req, res, next) => {
+	/* 
+	confirm the email by comapring the hashed token stored in database with the link in email 
+	*/
+	const hashedToken = crypto
+		.createHash('sha256')
+		.update(req.query.token)
+		.digest('hex')
+
+	const user = await User.findOne({
+		emailConfirmToken: hashedToken,
+	})
+	if (!user) {
+		return next(new AppError('Email confirmation token is invalid'))
+	}
+	user.emailConfirmed = true
+	// clear the Token
+	user.emailConfirmToken = undefined
+	await user.save()
+	res.send("Email confirmed successfully. Log In to app.");
+
+	await new Email(user).sendWelcome()
 })
 
 exports.protect = createProtectController(User, 'user');

@@ -12,9 +12,9 @@ const tournamentSchema = new Schema({
         type: Number,
         default: 7,   
     },
-    teams: {
+    teams: [{
         type: mongoose.ObjectId,
-    },
+    }],
     winningPrice: {
         type: Number,
         default: 0,

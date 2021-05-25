@@ -23,20 +23,22 @@ const mongooseSchema = Schema({
         type: Number,
         default: []
     }],
-    bookings: [{
-        date: {
-            type: String,
-            required: true,
-        },
-        hours: {
-            type: Number,
-            required: true,
-        },
-        person: {
-            type: String,
-            required: true,
-        }
-    }]
+    bookings: {
+        type: [{
+            date: {
+                type: String,
+                required: true,
+            },
+            hours: [{
+                type: Number,
+                required: true,
+            }],
+            userId: {
+                type: String,
+                required: true,
+            }
+        }]
+    }
 
 }, {
     timestamp: true

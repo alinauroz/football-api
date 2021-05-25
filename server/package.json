@@ -30,6 +30,8 @@
     "nodemailer": "^6.4.6",
     "nodemon": "*",
     "pug": "^3.0.0",
+    "safepay": "^0.0.2",
+    "safepay-sdk": "^0.0.14",
     "socket.io": "^3.1.2",
     "uuid": "^8.3.1",
     "validator": "^13.0.0",
